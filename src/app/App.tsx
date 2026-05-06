@@ -4,6 +4,8 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import VendorProfilePage from "./pages/VendorProfilePage";
 import CatalogPage from "./pages/CatalogPage";
 import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 export default function App() {
   return (
@@ -13,6 +15,8 @@ export default function App() {
       <Route path="/tienda/:id" element={<VendorProfilePage />} />
       <Route path="/productos" element={<CatalogPage />} />
       <Route path="/carrito" element={<CartPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/pedido/:orderId" element={<OrderConfirmationPage />} />
     </Routes>
   );
 }
