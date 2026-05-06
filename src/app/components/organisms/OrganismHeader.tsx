@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Heart, ShoppingCart, Menu, X, Check, Copy } from "lucide-react";
+import { useCart } from "../../../context/CartContext";
 
 // ─── Organism/Header Component ────────────────────────────────────────────────
 
@@ -32,6 +33,9 @@ export function OrganismHeader({
   userName = "Usuario",
 }: OrganismHeaderProps) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { getTotalItems } = useCart();
+  const cartBadge = getTotalItems();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -168,7 +172,7 @@ export function OrganismHeader({
 
             {/* Cart Icon with Badge - Desktop */}
             <button
-              onClick={onCartClick}
+              onClick={() => { onCartClick?.(); navigate("/carrito"); }}
               style={{
                 width: "40px",
                 height: "40px",
@@ -191,7 +195,7 @@ export function OrganismHeader({
               }}
             >
               <ShoppingCart size={20} strokeWidth={2} style={{ color: "#6B6A65" }} />
-              {cartCount > 0 && (
+              {cartBadge > 0 && (
                 <div
                   style={{
                     position: "absolute",
@@ -211,7 +215,7 @@ export function OrganismHeader({
                     padding: "0 4px",
                   }}
                 >
-                  {cartCount > 99 ? "99+" : cartCount}
+                  {cartBadge > 99 ? "99+" : cartBadge}
                 </div>
               )}
             </button>

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import { productos } from "../../data/productos";
 import { vendedores } from "../../data/vendedores";
 import { getMunicipio } from "../../data/municipios";
@@ -21,7 +22,16 @@ export default function ProductDetailPage() {
   const municipioNombre =
     getMunicipio(producto?.municipio ?? "")?.nombre ?? producto?.municipio ?? "";
 
+  const { addItem } = useCart();
   const [cantidad, setCantidad] = useState(1);
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = useCallback(() => {
+    if (!producto) return;
+    addItem(producto, cantidad);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  }, [producto, cantidad, addItem]);
 
   if (!producto) {
     return (
@@ -515,9 +525,9 @@ export default function ProductDetailPage() {
           {/* CTA buttons */}
           <div className="pdp-cta" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <ButtonPrimary
-              label={`Agregar al carrito · ${cantidad}`}
-              showIcon
-              onClick={() => console.log("Agregar al carrito", { id: producto.id, cantidad })}
+              label={added ? `✓ Agregado al carrito` : `Agregar al carrito · ${cantidad}`}
+              showIcon={!added}
+              onClick={handleAddToCart}
             />
             <ButtonSecondary
               label="Ver tienda del vendedor"
