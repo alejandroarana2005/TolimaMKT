@@ -19,7 +19,7 @@ export function MoleculeDiscountPill({
       label: "Descuento",
     },
     nuevo: {
-      background: "#7A3048", // Primary/Vinotinto
+      background: "#D4AA50", // Secondary/Dorado-mid
       color: "#FFFFFF",
       label: "Nuevo",
     },

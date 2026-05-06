@@ -14,7 +14,7 @@ export const productos: Producto[] = [
     descripcion:
       "Buzo oversize con bordado de motivos Pijao en el pecho. Algodón pesado 350g, interior afelpado. " +
       "Vinotinto con detalles en dorado. Talla única amplia.",
-    imageUrl: "https://picsum.photos/seed/hoodie-pijao/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&w=400&h=400&fit=crop",
     rating: 4.9,
     totalReseñas: 34,
     stock: 12,
@@ -31,7 +31,7 @@ export const productos: Producto[] = [
     descripcion:
       "Camiseta de algodón 100% con gráfico serigrafía que representa el mapa del Tolima y el río Magdalena. " +
       "Corte relajado, cuello redondo reforzado. Disponible en crema y negro.",
-    imageUrl: "https://picsum.photos/seed/camiseta-tolima/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 21,
     stock: 30,
@@ -48,7 +48,7 @@ export const productos: Producto[] = [
     descripcion:
       "Sudadera crew-neck en color verde musgo, inspirada en los páramos del Líbano. " +
       "Tela técnica reciclada con bolsillo canguro y costuras reforzadas. Producción limitada.",
-    imageUrl: "https://picsum.photos/seed/sudadera-cordillera/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 18,
     stock: 6,
@@ -65,7 +65,7 @@ export const productos: Producto[] = [
     descripcion:
       "Polo de punto piqué con bordado del Puente de Navarro en el lado izquierdo del pecho. " +
       "Paleta de colores ocre y blanco, referencia directa a la arquitectura colonial de Honda.",
-    imageUrl: "https://picsum.photos/seed/polo-honda/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&w=400&h=400&fit=crop",
     rating: 4.6,
     totalReseñas: 12,
     stock: 20,
@@ -84,7 +84,7 @@ export const productos: Producto[] = [
     descripcion:
       "Chaqueta tipo bomber en tela impermeable color azul oscuro con parches bordados del Magdalena. " +
       "Forro interior estampado con mapa fluvial del Tolima. Ideal para el frío ribereño.",
-    imageUrl: "https://picsum.photos/seed/chaqueta-magdalena/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&w=400&h=400&fit=crop",
     rating: 5.0,
     totalReseñas: 27,
     stock: 5,
@@ -101,7 +101,7 @@ export const productos: Producto[] = [
     descripcion:
       "Segunda edición de la colección Pijao Nation. Serigrafía en cuatro tintas con iconografía indígena " +
       "reinterpretada. Algodón 180g, corte unisex. Edición numerada de 80 unidades.",
-    imageUrl: "https://picsum.photos/seed/pijao-nation-v2/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&w=400&h=400&fit=crop",
     rating: 4.9,
     totalReseñas: 41,
     stock: 14,
@@ -120,7 +120,7 @@ export const productos: Producto[] = [
     descripcion:
       "Gorra dad hat en denim lavado con bordado del río Magdalena en hilo dorado. " +
       "Ajuste trasero metálico, visera curva. Un clásico del norte tolimense.",
-    imageUrl: "https://picsum.photos/seed/gorra-magdalena/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 15,
     stock: 25,
@@ -137,7 +137,7 @@ export const productos: Producto[] = [
     descripcion:
       "Tote bag en lona natural con serigrafía del skyline de Ibagué y el nevado del Tolima al fondo. " +
       "Asas largas reforzadas, capacidad 15L. Perfecto para el mercado o la universidad.",
-    imageUrl: "https://picsum.photos/seed/tote-ibague/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1597422192601-d16f0b5c71de?auto=format&w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 29,
     stock: 18,
@@ -154,7 +154,7 @@ export const productos: Producto[] = [
     descripcion:
       "Mochila urbana en lona reciclada color café con parches bordados de ramas de café tolimense. " +
       "Compartimento para laptop 14\", correas acolchadas. Producción artesanal del Líbano.",
-    imageUrl: "https://picsum.photos/seed/mochila-cafetal/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&w=400&h=400&fit=crop",
     rating: 4.6,
     totalReseñas: 11,
     stock: 8,
@@ -171,7 +171,7 @@ export const productos: Producto[] = [
     descripcion:
       "Collar artesanal elaborado con semillas nativas del Tolima: tagua, chaquira y acaí. " +
       "Tejido en macramé con hilo encerado. Pieza única, no hay dos iguales.",
-    imageUrl: "https://picsum.photos/seed/collar-semillas/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&w=400&h=400&fit=crop",
     rating: 4.9,
     totalReseñas: 38,
     stock: 7,
@@ -190,7 +190,7 @@ export const productos: Producto[] = [
     descripcion:
       "Bufanda en lana de oveja teñida con tintes naturales de la región cafetera. " +
       "Tejida a mano en telar vertical, patrón geométrico andino. 180 x 35 cm.",
-    imageUrl: "https://picsum.photos/seed/bufanda-libano/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 22,
     stock: 10,
@@ -207,7 +207,7 @@ export const productos: Producto[] = [
     descripcion:
       "Cinturón en cuero curtido con hebilla artesanal y decoración de chaquira inspirada en la cultura Pijao. " +
       "Ancho 3cm, largo ajustable de 80 a 110cm. Acabado a mano.",
-    imageUrl: "https://picsum.photos/seed/cinturon-pijao/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1611604548018-d56bbd85d681?auto=format&w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 16,
     stock: 15,
@@ -228,7 +228,7 @@ export const productos: Producto[] = [
     descripcion:
       "Jean recto de corte retro años 90, lavado vintage con desgastes manuales. " +
       "Parche bordado del escudo del Espinal en el bolsillo trasero. Algodón 100% denim.",
-    imageUrl: "https://picsum.photos/seed/jean-espinal/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&w=400&h=400&fit=crop",
     rating: 4.6,
     totalReseñas: 19,
     stock: 9,
@@ -245,7 +245,7 @@ export const productos: Producto[] = [
     descripcion:
       "Chaleco denim clásico sin mangas con parches coleccionables de municipios del Tolima. " +
       "Lavado desgastado a la piedra. Ideal para customizar y coleccionar.",
-    imageUrl: "https://picsum.photos/seed/chaleco-denim/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&w=400&h=400&fit=crop",
     rating: 4.5,
     totalReseñas: 14,
     stock: 6,
@@ -266,7 +266,7 @@ export const productos: Producto[] = [
     descripcion:
       "Sandalias de cuero curtido artesanalmente en Honda. Plantilla acolchada en cuero natural, " +
       "suela de caucho antideslizante. Ajuste con hebilla de bronce. Tallas 35–42.",
-    imageUrl: "https://picsum.photos/seed/sandalias-honda/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 33,
     stock: 11,
@@ -283,7 +283,7 @@ export const productos: Producto[] = [
     descripcion:
       "Zapatillas canvas de lona con estampado exclusivo de granos de café y hojas de café tolimense. " +
       "Puntera reforzada, cordones de algodón natural. Suela vulcanizada. Tallas 35–45.",
-    imageUrl: "https://picsum.photos/seed/tenis-cafetero/400/400",
+    imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 25,
     stock: 14,

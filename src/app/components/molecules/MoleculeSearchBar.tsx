@@ -95,7 +95,7 @@ export function MoleculeSearchBar({
             fontSize: 14,
             fontWeight: 600,
             color: "#FFFFFF",
-            background: value.trim() ? "#7A3048" : "#9D9C97",
+            background: "#7A3048",
             borderRadius: 8,
             paddingTop: 10,
             paddingBottom: 10,
@@ -112,9 +112,7 @@ export function MoleculeSearchBar({
             }
           }}
           onMouseLeave={(e) => {
-            if (value.trim()) {
-              e.currentTarget.style.background = "#7A3048";
-            }
+            e.currentTarget.style.background = "#7A3048";
           }}
         >
           {buttonLabel}

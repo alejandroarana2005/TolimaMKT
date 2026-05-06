@@ -152,7 +152,7 @@ export function MoleculeProductCard({
               color: "#B08A2E",
             }}
           >
-            {municipio}
+            {municipio.charAt(0).toUpperCase() + municipio.slice(1).replace(/-/g, " ")}
           </span>
         </div>
 

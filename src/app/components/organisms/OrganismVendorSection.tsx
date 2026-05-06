@@ -100,16 +100,34 @@ export function OrganismVendorSection({
         >
           {vendedores
             ? vendedores.map((v) => (
-                <MoleculeMiniVendor
+                <div
                   key={v.id}
-                  id={v.id}
-                  avatarUrl={v.avatarUrl}
-                  vendorName={v.nombreTienda}
-                  municipio={getMunicipio(v.municipio)?.nombre ?? v.municipio}
-                  isVerified={v.verificado}
-                  rating={v.rating}
-                  onClick={() => onVendorClick?.(v.id)}
-                />
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: "14px",
+                    boxShadow: "0 2px 12px rgba(122,48,72,0.08)",
+                    padding: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
+                  <MoleculeMiniVendor
+                    id={v.id}
+                    avatarUrl={v.avatarUrl}
+                    vendorName={v.nombreTienda}
+                    municipio={getMunicipio(v.municipio)?.nombre ?? v.municipio}
+                    isVerified={v.verificado}
+                    rating={v.rating}
+                    onClick={() => onVendorClick?.(v.id)}
+                  />
+                  <MoleculeRating
+                    rating={v.rating}
+                    reviewCount={v.totalReseñas}
+                    starSize={12}
+                    showReviewCount={true}
+                  />
+                </div>
               ))
             : vendors.map((vendor) => (
                 <VendorCard
