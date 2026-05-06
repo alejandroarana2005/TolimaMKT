@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OrganismHeader } from "../components/organisms/OrganismHeader";
 import { OrganismHero } from "../components/organisms/OrganismHero";
 import { OrganismCategoryFilter } from "../components/organisms/OrganismCategoryFilter";
@@ -21,6 +22,7 @@ const CATEGORIAS = [
 const MUNICIPIO_NOMBRES = municipios.map((m) => m.nombre);
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [selectedCategories, setSelectedCategories] = useState<string[]>(["Todo"]);
   const [selectedMunicipios, setSelectedMunicipios] = useState<string[]>([]);
   const [cartCount] = useState(0);
@@ -49,14 +51,22 @@ export default function HomePage() {
         municipios={MUNICIPIO_NOMBRES}
         selectedCategories={selectedCategories}
         selectedMunicipios={selectedMunicipios}
-        onCategoryChange={(cats) => setSelectedCategories(cats)}
-        onMunicipioChange={(muns) => setSelectedMunicipios(muns)}
+        onCategoryChange={(cats) => {
+          setSelectedCategories(cats);
+          const cat = cats.find((c) => c !== "Todo");
+          if (cat) navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
+        }}
+        onMunicipioChange={(muns) => {
+          setSelectedMunicipios(muns);
+          if (muns.length > 0)
+            navigate(`/productos?municipio=${encodeURIComponent(muns[0])}`);
+        }}
       />
 
       <OrganismProductGrid
         title="Productos destacados"
         productos={productosConDescuento}
-        onViewAll={() => console.log("Ver todos los destacados")}
+        onViewAll={() => navigate("/productos?orden=descuento")}
         onProductClick={(id) => console.log("Producto:", id)}
       />
 
@@ -70,7 +80,7 @@ export default function HomePage() {
       <OrganismProductGrid
         title="Recién llegados"
         productos={productosNuevos}
-        onViewAll={() => console.log("Ver todos los nuevos")}
+        onViewAll={() => navigate("/productos?estado=nuevo")}
         onProductClick={(id) => console.log("Producto:", id)}
       />
 
