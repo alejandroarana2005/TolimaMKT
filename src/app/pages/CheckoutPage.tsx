@@ -44,6 +44,7 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
   const { items, getTotal, clearCart } = useCart();
   const total = getTotal();
+  useEffect(() => { document.title = "Checkout — TolimaMKT"; }, []);
 
   /* Redirect if cart is empty */
   useEffect(() => {

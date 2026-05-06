@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../components/atoms/LoadingSpinner";
 import { useCart } from "../../context/CartContext";
 import { productos } from "../../data/productos";
 import { vendedores } from "../../data/vendedores";
@@ -25,6 +26,17 @@ export default function ProductDetailPage() {
   const { addItem } = useCart();
   const [cantidad, setCantidad] = useState(1);
   const [added, setAdded] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(t);
+  }, [id]);
+
+  useEffect(() => {
+    if (producto) document.title = `${producto.nombre} — TolimaMKT`;
+  }, [producto]);
 
   const handleAddToCart = useCallback(() => {
     if (!producto) return;
@@ -32,6 +44,14 @@ export default function ProductDetailPage() {
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }, [producto, cantidad, addItem]);
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#FFFFFF" }}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   if (!producto) {
     return (

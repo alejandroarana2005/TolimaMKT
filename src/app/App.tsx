@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useScrollToTop } from "../hooks/useScrollToTop";
 import HomePage from "./pages/HomePage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import VendorProfilePage from "./pages/VendorProfilePage";
@@ -11,8 +12,10 @@ import VendorLayout from "./layouts/VendorLayout";
 import VendorDashboardPage from "./pages/VendorDashboardPage";
 import VendorCatalogPage from "./pages/VendorCatalogPage";
 import VendorOrdersPage from "./pages/VendorOrdersPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
+  useScrollToTop();
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -29,6 +32,7 @@ export default function App() {
         <Route path="catalogo" element={<VendorCatalogPage />} />
         <Route path="pedidos" element={<VendorOrdersPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

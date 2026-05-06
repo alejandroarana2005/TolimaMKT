@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { productos as todosProductos } from "../../data/productos";
 import { vendedores } from "../../data/vendedores";
 import { municipios, getMunicipio } from "../../data/municipios";
@@ -39,6 +39,7 @@ const FORM_VACIO: FormData = {
 };
 
 export default function VendorCatalogPage() {
+  useEffect(() => { document.title = "Panel — TolimaMKT"; }, []);
   const [lista, setLista] = useState<ProductoLocal[]>(() =>
     todosProductos
       .filter((p) => p.vendedorId === vendedor.id)

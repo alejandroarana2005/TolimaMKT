@@ -2,6 +2,11 @@ import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { MoleculeSearchBar } from "../molecules/MoleculeSearchBar";
 import { MoleculeMunicipioChip } from "../molecules/MoleculeMunicipioChip";
+import { MoleculeProductCard } from "../molecules/MoleculeProductCard";
+import { productos } from "../../../data/productos";
+import { getMunicipio } from "../../../data/municipios";
+
+const HERO_PRODUCTS = productos.slice(0, 4);
 
 // ─── Organism/Hero Component ──────────────────────────────────────────────────
 
@@ -122,23 +127,37 @@ export function OrganismHero({
             {!imageUrl && (
               <div
                 style={{
-                  width: "60%",
-                  height: "60%",
-                  borderRadius: "12px",
-                  background: "rgba(212, 170, 80, 0.3)",
+                  position: "absolute",
+                  inset: 0,
+                  overflow: "hidden",
+                  borderRadius: "20px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  background: "#F9F0F3",
                 }}
               >
                 <div
                   style={{
-                    width: "50%",
-                    height: "50%",
-                    borderRadius: "8px",
-                    background: "rgba(122, 48, 72, 0.15)",
+                    display: "grid",
+                    gridTemplateColumns: "220px 220px",
+                    gap: "10px",
+                    transform: "scale(0.68)",
+                    pointerEvents: "none",
+                    userSelect: "none",
                   }}
-                />
+                >
+                  {HERO_PRODUCTS.map((p) => (
+                    <MoleculeProductCard
+                      key={p.id}
+                      imageUrl={p.imageUrl}
+                      categoria={p.categoria}
+                      municipio={getMunicipio(p.municipio)?.nombre ?? p.municipio}
+                      productName={p.nombre}
+                      price={`$${p.precio.toLocaleString("es-CO")}`}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </div>

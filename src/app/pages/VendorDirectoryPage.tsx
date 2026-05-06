@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { vendedores } from "../../data/vendedores";
 import { getMunicipio } from "../../data/municipios";
@@ -16,6 +16,8 @@ export default function VendorDirectoryPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [municipioFiltro, setMunicipioFiltro] = useState<string | null>(null);
   const [soloVerificados, setSoloVerificados] = useState(false);
+
+  useEffect(() => { document.title = "Tiendas — TolimaMKT"; }, []);
 
   const filtered = useMemo(() => {
     return vendedores.filter((v) => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type OrderStatus = "Nuevo" | "En preparación" | "Enviado" | "Entregado";
 
@@ -77,6 +77,7 @@ const STATUS_STYLE: Record<
 };
 
 export default function VendorOrdersPage() {
+  useEffect(() => { document.title = "Panel — TolimaMKT"; }, []);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [pedidos, setPedidos] = useState<Pedido[]>(PEDIDOS);
 

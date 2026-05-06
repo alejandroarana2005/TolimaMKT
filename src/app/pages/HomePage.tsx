@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { OrganismHeader } from "../components/organisms/OrganismHeader";
 import { OrganismHero } from "../components/organisms/OrganismHero";
@@ -26,6 +26,8 @@ export default function HomePage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(["Todo"]);
   const [selectedMunicipios, setSelectedMunicipios] = useState<string[]>([]);
   const [cartCount] = useState(0);
+
+  useEffect(() => { document.title = "TolimaMKT — Moda del Tolima"; }, []);
 
   return (
     <div style={{ minHeight: "100vh", background: "#FFFFFF" }}>

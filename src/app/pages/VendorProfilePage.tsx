@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../components/atoms/LoadingSpinner";
 import { vendedores } from "../../data/vendedores";
 import { productosPorVendedor } from "../../data/productos";
 import { getMunicipio } from "../../data/municipios";
@@ -12,6 +14,14 @@ import { ButtonSecondary } from "../components/atoms/ButtonSecondary";
 export default function VendorProfilePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 400);
+    return () => clearTimeout(t);
+  }, [id]);
+
   const vendedor = vendedores.find((v) => v.id === id);
   const productosVendedor = id ? productosPorVendedor(id) : [];
   const municipioNombre =
@@ -19,6 +29,18 @@ export default function VendorProfilePage() {
   const añoRegistro = vendedor?.fechaRegistro
     ? new Date(vendedor.fechaRegistro).getFullYear()
     : null;
+
+  useEffect(() => {
+    if (vendedor) document.title = `${vendedor.nombreTienda} — TolimaMKT`;
+  }, [vendedor]);
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#FFFFFF" }}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   /* ── 404 ──────────────────────────────────────────────────────────── */
   if (!vendedor) {

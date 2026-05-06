@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { X, ShoppingBag } from "lucide-react";
 import { useCart } from "../../context/CartContext";
@@ -9,6 +10,7 @@ export default function CartPage() {
   const { items, removeItem, updateQuantity, getTotal, getTotalItems } = useCart();
   const navigate = useNavigate();
   const total = getTotal();
+  useEffect(() => { document.title = "Tu carrito — TolimaMKT"; }, []);
 
   /* ── Empty state ──────────────────────────────────────────────────── */
   if (items.length === 0) {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { vendedores } from "../../data/vendedores";
 import { productos } from "../../data/productos";
@@ -14,6 +15,7 @@ const VISITAS_HOY = 142;
 
 export default function VendorDashboardPage() {
   const navigate = useNavigate();
+  useEffect(() => { document.title = "Panel — TolimaMKT"; }, []);
 
   return (
     <div style={{ maxWidth: "960px" }}>

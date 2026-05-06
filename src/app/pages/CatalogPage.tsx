@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { SlidersHorizontal, X, ChevronDown } from "lucide-react";
 import { productos } from "../../data/productos";
@@ -38,6 +38,7 @@ const municipiosConProductos = (() => {
 /* ── Main component ─────────────────────────────────────────────────── */
 
 export default function CatalogPage() {
+  useEffect(() => { document.title = "Catálogo — TolimaMKT"; }, []);
   const [searchParams] = useSearchParams();
 
   /* Initialize from URL query params */
