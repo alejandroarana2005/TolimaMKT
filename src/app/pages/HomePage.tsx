@@ -41,11 +41,10 @@ export default function HomePage() {
       />
 
       <OrganismHero
-        headline="El streetwear del Tolima, en un solo lugar"
+        headline="La moda del Tolima, en un solo lugar"
         subtitle="Descubre emprendedores de Ibagué, Honda, El Espinal y más."
         searchPlaceholder="¿Qué deseas explorar en el Tolima?"
         onSearch={(q) => console.log("Búsqueda:", q)}
-        municipios={["Ibagué", "Honda", "El Espinal", "Líbano", "Melgar"]}
       />
 
       <OrganismCategoryFilter

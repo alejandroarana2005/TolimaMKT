@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { MoleculeSearchBar } from "../molecules/MoleculeSearchBar";
-import { MoleculeMunicipioChip } from "../molecules/MoleculeMunicipioChip";
 import nevadoTolima from "@/assets/images/nevado-tolima.jpg";
 
 // ─── Organism/Hero Component ──────────────────────────────────────────────────
@@ -11,7 +10,6 @@ interface OrganismHeroProps {
   subtitle?: string;
   searchPlaceholder?: string;
   onSearch?: (value: string) => void;
-  municipios?: string[];
 }
 
 export function OrganismHero({
@@ -19,7 +17,6 @@ export function OrganismHero({
   subtitle = "Descubre emprendedores de Ibagué, Honda, Espinal y más.",
   searchPlaceholder = "¿Qué deseas explorar en el Tolima?",
   onSearch,
-  municipios = ["Ibagué", "Honda", "El Espinal"],
 }: OrganismHeroProps) {
   return (
     <section
@@ -59,23 +56,13 @@ export function OrganismHero({
         style={{
           position: "relative",
           zIndex: 2,
-          maxWidth: "1200px",
+          maxWidth: "640px",
           width: "100%",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "80px",
-          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: "24px",
         }}
-        className="hero-grid"
       >
-        {/* Left Side: Content */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
-        >
           {/* Headline */}
           <h1
             style={{
@@ -111,84 +98,9 @@ export function OrganismHero({
               onSearch={onSearch}
             />
           </div>
-        </div>
-
-        {/* Right Side: Floating Municipio Badges over the mountain */}
-        <div
-          style={{
-            position: "relative",
-            height: "340px",
-          }}
-          className="hero-image-container"
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: "20px",
-              left: "-30px",
-              animation: "floatBadge1 3s ease-in-out infinite",
-              zIndex: 2,
-            }}
-          >
-            <MoleculeMunicipioChip label={municipios[0]} variant="active" />
-          </div>
-
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "-40px",
-              transform: "translateY(-50%)",
-              animation: "floatBadge2 3.5s ease-in-out infinite",
-              zIndex: 2,
-            }}
-          >
-            <MoleculeMunicipioChip label={municipios[1]} variant="active" />
-          </div>
-
-          <div
-            style={{
-              position: "absolute",
-              bottom: "30px",
-              left: "-20px",
-              animation: "floatBadge3 4s ease-in-out infinite",
-              zIndex: 2,
-            }}
-          >
-            <MoleculeMunicipioChip label={municipios[2]} variant="active" />
-          </div>
-        </div>
       </div>
 
-      {/* Floating Animation Keyframes */}
       <style>{`
-        @keyframes floatBadge1 {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-12px); }
-        }
-        @keyframes floatBadge2 {
-          0%, 100% { transform: translateY(-50%) translateX(0px); }
-          50% { transform: translateY(-50%) translateX(8px); }
-        }
-        @keyframes floatBadge3 {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-
-        @media (max-width: 968px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
-          .hero-image-container {
-            display: none !important;
-          }
-          .hero-searchbar {
-            display: flex;
-            justify-content: center;
-          }
-        }
-
         @media (max-width: 600px) {
           .hero-searchbar > div {
             width: 100% !important;
