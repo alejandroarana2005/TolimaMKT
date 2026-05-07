@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Copy, Instagram, Phone } from "lucide-react";
+import { Check, Copy, Instagram } from "lucide-react";
 
 // ─── Social Media Icons ────────────────────────────────────────────────────────
 

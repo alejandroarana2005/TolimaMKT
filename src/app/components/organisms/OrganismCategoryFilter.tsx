@@ -164,7 +164,8 @@ export function OrganismCategoryFilterShowcase() {
   const [selectedMunicipios, setSelectedMunicipios] = useState<string[]>([]);
   const [filterEvents, setFilterEvents] = useState<string[]>([]);
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = (categories: string[]) => {
+    const category = categories[0];
     setSelectedCategories((prev) => {
       if (category === "Todo") {
         addEvent(`Categoría: ${category} (reset)`);
@@ -179,7 +180,8 @@ export function OrganismCategoryFilterShowcase() {
     });
   };
 
-  const handleMunicipioChange = (municipio: string) => {
+  const handleMunicipioChange = (municipios: string[]) => {
+    const municipio = municipios[0];
     setSelectedMunicipios((prev) =>
       prev.includes(municipio)
         ? prev.filter((m) => m !== municipio)

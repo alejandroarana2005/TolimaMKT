@@ -47,7 +47,7 @@ export function MoleculeProductCard({
       onClick={handleCardClick}
       style={{
         cursor: id ? "pointer" : "default",
-        width: "220px",
+        width: "100%",
         height: "300px",
         borderRadius: "14px",
         background: "#FFFFFF",

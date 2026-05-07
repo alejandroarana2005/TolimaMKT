@@ -52,17 +52,26 @@ export function OrganismHero({
           zIndex: 1,
         }}
       />
+      {/* Full-width row capped at page max-width, content left-anchored */}
       <div
         style={{
           position: "relative",
           zIndex: 2,
-          maxWidth: "640px",
+          maxWidth: "1440px",
           width: "100%",
           display: "flex",
-          flexDirection: "column",
-          gap: "24px",
+          alignItems: "center",
         }}
       >
+        <div
+          style={{
+            maxWidth: "560px",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+          }}
+        >
           {/* Headline */}
           <h1
             style={{
@@ -98,6 +107,7 @@ export function OrganismHero({
               onSearch={onSearch}
             />
           </div>
+        </div>
       </div>
 
       <style>{`

@@ -232,6 +232,7 @@ export default function CatalogPage() {
               onChange={(e) => setPrecioDesdeInput(e.target.value)}
               style={{
                 flex: 1,
+                minWidth: 0,
                 height: "36px",
                 border: "1px solid #E5E4E0",
                 borderRadius: "8px",
@@ -241,6 +242,7 @@ export default function CatalogPage() {
                 color: "#2C2C2A",
                 outline: "none",
                 background: "#FAFAF8",
+                boxSizing: "border-box",
               }}
             />
             <span style={{ fontSize: "12px", color: "#C0BFB9", flexShrink: 0 }}>—</span>
@@ -251,6 +253,7 @@ export default function CatalogPage() {
               onChange={(e) => setPrecioHastaInput(e.target.value)}
               style={{
                 flex: 1,
+                minWidth: 0,
                 height: "36px",
                 border: "1px solid #E5E4E0",
                 borderRadius: "8px",
@@ -260,6 +263,7 @@ export default function CatalogPage() {
                 color: "#2C2C2A",
                 outline: "none",
                 background: "#FAFAF8",
+                boxSizing: "border-box",
               }}
             />
           </div>
@@ -360,7 +364,7 @@ export default function CatalogPage() {
         /* Product grid */
         .cat-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 20px;
           margin-top: 24px;
         }
@@ -420,7 +424,7 @@ export default function CatalogPage() {
         }
 
         @media (max-width: 1024px) {
-          .cat-grid { grid-template-columns: repeat(3, 1fr); }
+          .cat-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
           .cat-layout {
