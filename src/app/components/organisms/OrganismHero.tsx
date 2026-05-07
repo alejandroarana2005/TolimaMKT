@@ -2,11 +2,7 @@ import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { MoleculeSearchBar } from "../molecules/MoleculeSearchBar";
 import { MoleculeMunicipioChip } from "../molecules/MoleculeMunicipioChip";
-import { MoleculeProductCard } from "../molecules/MoleculeProductCard";
-import { productos } from "../../../data/productos";
-import { getMunicipio } from "../../../data/municipios";
-
-const HERO_PRODUCTS = productos.slice(0, 4);
+import nevadoTolima from "@/assets/images/nevado-tolima.jpg";
 
 // ─── Organism/Hero Component ──────────────────────────────────────────────────
 
@@ -15,7 +11,6 @@ interface OrganismHeroProps {
   subtitle?: string;
   searchPlaceholder?: string;
   onSearch?: (value: string) => void;
-  imageUrl?: string;
   municipios?: string[];
 }
 
@@ -24,7 +19,6 @@ export function OrganismHero({
   subtitle = "Descubre emprendedores de Ibagué, Honda, Espinal y más.",
   searchPlaceholder = "¿Qué deseas explorar en el Tolima?",
   onSearch,
-  imageUrl,
   municipios = ["Ibagué", "Honda", "El Espinal"],
 }: OrganismHeroProps) {
   return (
@@ -32,7 +26,6 @@ export function OrganismHero({
       style={{
         width: "100%",
         height: "480px",
-        background: "linear-gradient(90deg, #F9F0F3 0%, #FBF7ED 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -41,8 +34,31 @@ export function OrganismHero({
         overflow: "hidden",
       }}
     >
+      {/* Background photo */}
       <div
         style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `url(${nevadoTolima})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+          zIndex: 0,
+        }}
+      />
+      {/* Directional overlay: dark left → transparent right */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to right, rgba(20,12,18,0.85) 0%, rgba(20,12,18,0.60) 55%, rgba(20,12,18,0.20) 100%)",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
           maxWidth: "1200px",
           width: "100%",
           display: "grid",
@@ -66,7 +82,7 @@ export function OrganismHero({
               fontFamily: "'DM Sans', sans-serif",
               fontSize: "28px",
               fontWeight: 600,
-              color: "#2C2C2A",
+              color: "#FFFFFF",
               lineHeight: 1.3,
               margin: 0,
             }}
@@ -80,7 +96,7 @@ export function OrganismHero({
               fontFamily: "'DM Sans', sans-serif",
               fontSize: "15px",
               fontWeight: 400,
-              color: "#6B6A65",
+              color: "rgba(255, 255, 255, 0.80)",
               lineHeight: 1.6,
               margin: 0,
             }}
@@ -97,72 +113,14 @@ export function OrganismHero({
           </div>
         </div>
 
-        {/* Right Side: Decorative Image with Floating Badges */}
+        {/* Right Side: Floating Municipio Badges over the mountain */}
         <div
           style={{
             position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            height: "340px",
           }}
           className="hero-image-container"
         >
-          {/* Decorative Image */}
-          <div
-            style={{
-              width: "400px",
-              height: "340px",
-              borderRadius: "20px",
-              background: imageUrl
-                ? `url(${imageUrl}) center/cover`
-                : "#F2E4B8",
-              boxShadow: "0 8px 24px rgba(122, 48, 72, 0.12)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "relative",
-              zIndex: 1,
-            }}
-          >
-            {!imageUrl && (
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  overflow: "hidden",
-                  borderRadius: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "#F9F0F3",
-                }}
-              >
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "220px 220px",
-                    gap: "10px",
-                    transform: "scale(0.68)",
-                    pointerEvents: "none",
-                    userSelect: "none",
-                  }}
-                >
-                  {HERO_PRODUCTS.map((p) => (
-                    <MoleculeProductCard
-                      key={p.id}
-                      imageUrl={p.imageUrl}
-                      categoria={p.categoria}
-                      municipio={getMunicipio(p.municipio)?.nombre ?? p.municipio}
-                      productName={p.nombre}
-                      price={`$${p.precio.toLocaleString("es-CO")}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Floating Municipio Badges */}
           <div
             style={{
               position: "absolute",
