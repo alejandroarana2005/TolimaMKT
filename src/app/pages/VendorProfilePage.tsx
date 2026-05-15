@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useFollowedStores } from "../../context/FollowedStoresContext";
 import { LoadingSpinner } from "../components/atoms/LoadingSpinner";
 import { vendedores } from "../../data/vendedores";
 import { productosPorVendedor } from "../../data/productos";
@@ -8,13 +9,14 @@ import { MoleculeRating } from "../components/molecules/MoleculeRating";
 import { MoleculeMunicipioChip } from "../components/molecules/MoleculeMunicipioChip";
 import { MoleculeProductCard } from "../components/molecules/MoleculeProductCard";
 import { MoleculeDiscountPill } from "../components/molecules/MoleculeDiscountPill";
-import { ButtonPrimary } from "../components/atoms/ButtonPrimary";
 import { ButtonSecondary } from "../components/atoms/ButtonSecondary";
 
 export default function VendorProfilePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { isFollowing, toggleFollow } = useFollowedStores();
   const [loading, setLoading] = useState(true);
+  const [followHover, setFollowHover] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -400,10 +402,34 @@ export default function VendorProfilePage() {
 
           {/* CTA buttons */}
           <div className="vpp-cta">
-            <ButtonPrimary
-              label="Seguir tienda"
-              onClick={() => console.log("Seguir", vendedor.id)}
-            />
+            <button
+              type="button"
+              onClick={() => toggleFollow(vendedor.id)}
+              onMouseEnter={() => setFollowHover(true)}
+              onMouseLeave={() => setFollowHover(false)}
+              style={{
+                height: "40px",
+                padding: "0 20px",
+                borderRadius: "10px",
+                border: isFollowing(vendedor.id) ? "1.5px solid #E8C4D0" : "none",
+                background: isFollowing(vendedor.id)
+                  ? followHover ? "#FFF5F5" : "#F9F0F3"
+                  : "#7A3048",
+                color: isFollowing(vendedor.id)
+                  ? followHover ? "#C62828" : "#7A3048"
+                  : "#FFFFFF",
+                fontSize: "14px",
+                fontWeight: 600,
+                fontFamily: "'DM Sans', sans-serif",
+                cursor: "pointer",
+                minWidth: "160px",
+                transition: "background 150ms, color 150ms, border-color 150ms",
+              }}
+            >
+              {isFollowing(vendedor.id)
+                ? followHover ? "Dejar de seguir" : "Siguiendo ✓"
+                : "Seguir tienda"}
+            </button>
             <ButtonSecondary
               label="Contactar"
               onClick={() => console.log("Contactar", vendedor.id)}

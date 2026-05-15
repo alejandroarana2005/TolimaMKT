@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, Check, Copy } from "lucide-react";
 import { TagCategoria } from "../atoms/TagCategoria";
+import { useFavorites } from "../../../context/FavoritesContext";
 
 // ─── Molecule/ProductCard Component ───────────────────────────────────────────
 
@@ -27,12 +28,19 @@ export function MoleculeProductCard({
   onFavorite,
 }: MoleculeProductCardProps) {
   const navigate = useNavigate();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite: checkFav, toggleFavorite } = useFavorites();
+  const [localFav, setLocalFav] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const favored = id ? checkFav(id) : localFav;
 
   const handleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
+    if (id) {
+      toggleFavorite(id);
+    } else {
+      setLocalFav((v) => !v);
+    }
     onFavorite?.();
   };
 
@@ -111,8 +119,8 @@ export function MoleculeProductCard({
             size={16}
             strokeWidth={2}
             style={{
-              color: isFavorite ? "#7A3048" : "#6B6A65",
-              fill: isFavorite ? "#7A3048" : "none",
+              color: favored ? "#7A3048" : "#6B6A65",
+              fill: favored ? "#7A3048" : "none",
               transition: "color 180ms ease, fill 180ms ease",
             }}
           />

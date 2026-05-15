@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Heart, ShoppingCart, Menu, X, Check, Copy } from "lucide-react";
 import { useCart } from "../../../context/CartContext";
+import { useUser } from "../../../context/UserContext";
 
 // ─── Organism/Header Component ────────────────────────────────────────────────
 
@@ -35,8 +36,23 @@ export function OrganismHeader({
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
+  const { user } = useUser();
   const cartBadge = getTotalItems();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const avatarWrapperRef = useRef<HTMLDivElement>(null);
+  const ctxAvatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.nombre + user.apellidos)}`;
+
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (avatarWrapperRef.current && !avatarWrapperRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [dropdownOpen]);
 
   const navLinks = [
     { label: "Inicio", to: "/" },
@@ -220,43 +236,129 @@ export function OrganismHeader({
               )}
             </button>
 
-            {/* Avatar - Desktop */}
-            <button
-              onClick={onAvatarClick}
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                background: avatarUrl ? `url(${avatarUrl}) center/cover` : "#E8C4D0",
-                border: "2px solid #F9F0F3",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-                transition: "border-color 180ms ease",
-              }}
+            {/* Avatar + Dropdown - Desktop */}
+            <div
+              ref={avatarWrapperRef}
+              style={{ position: "relative" }}
               className="header-icon-desktop"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "#E8C4D0";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "#F9F0F3";
-              }}
             >
-              {!avatarUrl && (
-                <span
+              <button
+                type="button"
+                onClick={() => { onAvatarClick?.(); setDropdownOpen((v) => !v); }}
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  background: `url(${ctxAvatarUrl}) center/cover`,
+                  border: dropdownOpen ? "2px solid #E8C4D0" : "2px solid #F9F0F3",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  transition: "border-color 180ms ease",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#E8C4D0"; }}
+                onMouseLeave={(e) => { if (!dropdownOpen) e.currentTarget.style.borderColor = "#F9F0F3"; }}
+              />
+
+              {dropdownOpen && (
+                <div
                   style={{
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: "#7A3048",
-                    fontFamily: "'DM Sans', sans-serif",
+                    position: "absolute",
+                    top: "calc(100% + 8px)",
+                    right: 0,
+                    background: "#FFFFFF",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 24px rgba(44,44,42,0.12)",
+                    border: "1px solid #F0EFE9",
+                    minWidth: "220px",
+                    zIndex: 100,
+                    overflow: "hidden",
                   }}
                 >
-                  {userName.charAt(0).toUpperCase()}
-                </span>
+                  {/* User info */}
+                  <div
+                    style={{
+                      padding: "14px 16px 12px",
+                      borderBottom: "1px solid #F0EFE9",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: "0 0 2px",
+                        fontSize: "14px",
+                        fontWeight: 700,
+                        color: "#2C2C2A",
+                        fontFamily: "'DM Sans', sans-serif",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {user.nombre} {user.apellidos}
+                    </p>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "12px",
+                        color: "#9D9C97",
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}
+                    >
+                      {user.email}
+                    </p>
+                  </div>
+
+                  {[
+                    { label: "Mi perfil", to: "/perfil" },
+                    { label: "Mis pedidos", to: "/perfil/pedidos" },
+                    { label: "Panel de vendedor", to: "/vendedor/dashboard" },
+                  ].map(({ label, to }) => (
+                    <Link
+                      key={to}
+                      to={to}
+                      onClick={() => setDropdownOpen(false)}
+                      style={{
+                        display: "block",
+                        padding: "10px 16px",
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        color: "#2C2C2A",
+                        fontFamily: "'DM Sans', sans-serif",
+                        textDecoration: "none",
+                        transition: "background 150ms",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#F4F3F0"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                  <div style={{ height: "1px", background: "#F0EFE9", margin: "4px 0" }} />
+                  <button
+                    type="button"
+                    onClick={() => setDropdownOpen(false)}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      textAlign: "left",
+                      padding: "10px 16px",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#C62828",
+                      fontFamily: "'DM Sans', sans-serif",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "background 150ms",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#FFF5F5"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "none"; }}
+                  >
+                    Cerrar sesión
+                  </button>
+                </div>
               )}
-            </button>
+            </div>
 
             {/* Mobile Menu Button */}
             <button

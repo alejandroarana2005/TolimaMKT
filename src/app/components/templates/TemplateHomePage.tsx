@@ -27,7 +27,7 @@ const PAGE_ZONES: PageZone[] = [
     organism: "Organism/Hero",
     height: 480,
     background: "linear-gradient(90deg, #F9F0F3, #FBF7ED)",
-    description: "Headline, search",
+    description: "Headline, search, floating badges",
   },
   {
     id: "filter",
