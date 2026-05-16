@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Heart, ShoppingCart, Menu, X, Check, Copy } from "lucide-react";
 import { useCart } from "../../../context/CartContext";
 import { useUser } from "../../../context/UserContext";
+import { useAuth } from "../../../context/AuthContext";
 
 // ─── Organism/Header Component ────────────────────────────────────────────────
 
@@ -37,6 +38,7 @@ export function OrganismHeader({
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
   const { user } = useUser();
+  const { logout } = useAuth();
   const cartBadge = getTotalItems();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -58,7 +60,6 @@ export function OrganismHeader({
     { label: "Inicio", to: "/" },
     { label: "Tiendas", to: "/tiendas" },
     { label: "Catálogo", to: "/productos" },
-    { label: "Municipios", to: "/municipios" },
   ];
 
   const isActive = (to: string) =>
@@ -162,7 +163,7 @@ export function OrganismHeader({
           >
             {/* Wishlist Icon - Desktop */}
             <button
-              onClick={onWishlistClick}
+              onClick={() => { onWishlistClick?.(); navigate("/perfil/favoritos"); }}
               style={{
                 width: "40px",
                 height: "40px",
@@ -336,7 +337,7 @@ export function OrganismHeader({
                   <div style={{ height: "1px", background: "#F0EFE9", margin: "4px 0" }} />
                   <button
                     type="button"
-                    onClick={() => setDropdownOpen(false)}
+                    onClick={() => { logout(); setDropdownOpen(false); }}
                     style={{
                       display: "block",
                       width: "100%",

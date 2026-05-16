@@ -3,10 +3,10 @@ import type { Producto } from "./types";
 export const productos: Producto[] = [
   // ── Streetwear ─────────────────────────────────────────────────────────────
   {
-    id: "p-001",
-    nombre: "Hoodie Pijao Roots",
+    id: "1",
+    nombre: "Hoodie gris oversize",
     precio: 89900,
-    precioOriginal: 105900,
+    precioOriginal: 105000,
     descuento: 15,
     vendedorId: "v-001",
     municipio: "ibague",
@@ -14,7 +14,7 @@ export const productos: Producto[] = [
     descripcion:
       "Buzo oversize con bordado de motivos Pijao en el pecho. Algodón pesado 350g, interior afelpado. " +
       "Vinotinto con detalles en dorado. Talla única amplia.",
-    imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=400&h=400&fit=crop",
     rating: 4.9,
     totalReseñas: 34,
     stock: 12,
@@ -22,8 +22,8 @@ export const productos: Producto[] = [
     tags: ["hoodie", "pijao", "oversize", "bordado", "vinotinto"],
   },
   {
-    id: "p-002",
-    nombre: "Camiseta Tolima Tierra",
+    id: "2",
+    nombre: "Camiseta blanca básica",
     precio: 52000,
     vendedorId: "v-008",
     municipio: "purificacion",
@@ -31,7 +31,7 @@ export const productos: Producto[] = [
     descripcion:
       "Camiseta de algodón 100% con gráfico serigrafía que representa el mapa del Tolima y el río Magdalena. " +
       "Corte relajado, cuello redondo reforzado. Disponible en crema y negro.",
-    imageUrl: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 21,
     stock: 30,
@@ -39,8 +39,8 @@ export const productos: Producto[] = [
     tags: ["camiseta", "tolima", "serigrafía", "mapa", "algodón"],
   },
   {
-    id: "p-003",
-    nombre: "Sudadera Cordillera Central",
+    id: "3",
+    nombre: "Sudadera verde oliva",
     precio: 98000,
     vendedorId: "v-004",
     municipio: "libano",
@@ -48,7 +48,7 @@ export const productos: Producto[] = [
     descripcion:
       "Sudadera crew-neck en color verde musgo, inspirada en los páramos del Líbano. " +
       "Tela técnica reciclada con bolsillo canguro y costuras reforzadas. Producción limitada.",
-    imageUrl: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 18,
     stock: 6,
@@ -56,8 +56,8 @@ export const productos: Producto[] = [
     tags: ["sudadera", "páramo", "sostenible", "líbano", "verde"],
   },
   {
-    id: "p-004",
-    nombre: "Polo Heritage Honda",
+    id: "4",
+    nombre: "Polo azul manga corta",
     precio: 62000,
     vendedorId: "v-003",
     municipio: "honda",
@@ -65,7 +65,7 @@ export const productos: Producto[] = [
     descripcion:
       "Polo de punto piqué con bordado del Puente de Navarro en el lado izquierdo del pecho. " +
       "Paleta de colores ocre y blanco, referencia directa a la arquitectura colonial de Honda.",
-    imageUrl: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1625910513828-e9c038cd2c58?w=400&h=400&fit=crop",
     rating: 4.6,
     totalReseñas: 12,
     stock: 20,
@@ -73,8 +73,8 @@ export const productos: Producto[] = [
     tags: ["polo", "honda", "patrimonio", "punto-piqué", "colonial"],
   },
   {
-    id: "p-005",
-    nombre: "Chaqueta Río Magdalena",
+    id: "5",
+    nombre: "Chaqueta negra ligera",
     precio: 175000,
     precioOriginal: 195000,
     descuento: 10,
@@ -84,7 +84,7 @@ export const productos: Producto[] = [
     descripcion:
       "Chaqueta tipo bomber en tela impermeable color azul oscuro con parches bordados del Magdalena. " +
       "Forro interior estampado con mapa fluvial del Tolima. Ideal para el frío ribereño.",
-    imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop",
     rating: 5.0,
     totalReseñas: 27,
     stock: 5,
@@ -92,152 +92,137 @@ export const productos: Producto[] = [
     tags: ["chaqueta", "bomber", "magdalena", "impermeable", "bordados"],
   },
   {
-    id: "p-006",
-    nombre: "Camiseta Pijao Nation Vol.2",
-    precio: 55000,
+    id: "6",
+    nombre: "Jean azul slim fit",
+    precio: 95000,
+    precioOriginal: 115000,
+    descuento: 20,
     vendedorId: "v-008",
     municipio: "purificacion",
     categoria: "Streetwear",
     descripcion:
       "Segunda edición de la colección Pijao Nation. Serigrafía en cuatro tintas con iconografía indígena " +
       "reinterpretada. Algodón 180g, corte unisex. Edición numerada de 80 unidades.",
-    imageUrl: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=400&fit=crop",
     rating: 4.9,
     totalReseñas: 41,
     stock: 14,
-    esNuevo: true,
-    tags: ["camiseta", "pijao", "edición-limitada", "serigrafía", "indígena"],
+    esNuevo: false,
+    tags: ["jean", "slim", "denim", "azul", "clásico"],
   },
 
   // ── Accesorios ─────────────────────────────────────────────────────────────
   {
-    id: "p-007",
-    nombre: "Gorra Río Magdalena",
-    precio: 45000,
+    id: "7",
+    nombre: "Gorra negra panel plano",
+    precio: 35000,
     vendedorId: "v-005",
     municipio: "mariquita",
     categoria: "Accesorios",
     descripcion:
       "Gorra dad hat en denim lavado con bordado del río Magdalena en hilo dorado. " +
       "Ajuste trasero metálico, visera curva. Un clásico del norte tolimense.",
-    imageUrl: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 15,
     stock: 25,
-    esNuevo: false,
+    esNuevo: true,
     tags: ["gorra", "denim", "magdalena", "bordado", "dad-hat"],
   },
   {
-    id: "p-008",
-    nombre: "Tote Bag Ibagué",
-    precio: 38000,
+    id: "8",
+    nombre: "Mochila café cuero sintético",
+    precio: 85000,
     vendedorId: "v-001",
     municipio: "ibague",
     categoria: "Accesorios",
     descripcion:
-      "Tote bag en lona natural con serigrafía del skyline de Ibagué y el nevado del Tolima al fondo. " +
-      "Asas largas reforzadas, capacidad 15L. Perfecto para el mercado o la universidad.",
-    imageUrl: "https://images.unsplash.com/photo-1597422192601-d16f0b5c71de?auto=format&w=400&h=400&fit=crop",
+      "Mochila urbana en lona reciclada color café con parches bordados de ramas de café tolimense. " +
+      "Compartimento para laptop 14\", correas acolchadas. Producción artesanal del Líbano.",
+    imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 29,
     stock: 18,
-    esNuevo: false,
-    tags: ["tote-bag", "ibagué", "lona", "skyline", "nevado"],
-  },
-  {
-    id: "p-009",
-    nombre: "Mochila Cafetal Urban",
-    precio: 85000,
-    vendedorId: "v-004",
-    municipio: "libano",
-    categoria: "Accesorios",
-    descripcion:
-      "Mochila urbana en lona reciclada color café con parches bordados de ramas de café tolimense. " +
-      "Compartimento para laptop 14\", correas acolchadas. Producción artesanal del Líbano.",
-    imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&w=400&h=400&fit=crop",
-    rating: 4.6,
-    totalReseñas: 11,
-    stock: 8,
     esNuevo: true,
     tags: ["mochila", "café", "reciclado", "artesanal", "líbano"],
   },
   {
-    id: "p-010",
-    nombre: "Collar Semillas Nativas",
+    id: "9",
+    nombre: "Cinturón trenzado marrón",
     precio: 28000,
+    vendedorId: "v-004",
+    municipio: "libano",
+    categoria: "Accesorios",
+    descripcion:
+      "Cinturón en cuero curtido con hebilla artesanal y decoración de chaquira inspirada en la cultura Pijao. " +
+      "Ancho 3cm, largo ajustable de 80 a 110cm. Acabado a mano.",
+    imageUrl: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&h=400&fit=crop",
+    rating: 4.6,
+    totalReseñas: 11,
+    stock: 8,
+    esNuevo: false,
+    tags: ["cinturón", "cuero", "trenzado", "marrón", "artesanal"],
+  },
+  {
+    id: "10",
+    nombre: "Tote bag lona beige",
+    precio: 42000,
     vendedorId: "v-007",
     municipio: "el-espinal",
     categoria: "Accesorios",
     descripcion:
-      "Collar artesanal elaborado con semillas nativas del Tolima: tagua, chaquira y acaí. " +
-      "Tejido en macramé con hilo encerado. Pieza única, no hay dos iguales.",
-    imageUrl: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&w=400&h=400&fit=crop",
+      "Tote bag en lona natural con serigrafía del skyline de Ibagué y el nevado del Tolima al fondo. " +
+      "Asas largas reforzadas, capacidad 15L. Perfecto para el mercado o la universidad.",
+    imageUrl: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400&h=400&fit=crop",
     rating: 4.9,
     totalReseñas: 38,
     stock: 7,
     esNuevo: false,
-    tags: ["collar", "semillas", "tagua", "macramé", "artesanal"],
+    tags: ["tote-bag", "lona", "beige", "artesanal", "mercado"],
   },
 
-  // ── Artesanal ──────────────────────────────────────────────────────────────
+  // ── Calzado ────────────────────────────────────────────────────────────────
   {
-    id: "p-011",
-    nombre: "Bufanda Tejida Líbano",
-    precio: 42000,
+    id: "11",
+    nombre: "Sandalias cuero café",
+    precio: 78000,
+    precioOriginal: 95000,
+    descuento: 25,
     vendedorId: "v-004",
     municipio: "libano",
-    categoria: "Artesanal",
+    categoria: "Calzado",
     descripcion:
-      "Bufanda en lana de oveja teñida con tintes naturales de la región cafetera. " +
-      "Tejida a mano en telar vertical, patrón geométrico andino. 180 x 35 cm.",
-    imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&w=400&h=400&fit=crop",
+      "Sandalias de cuero curtido artesanalmente en Honda. Plantilla acolchada en cuero natural, " +
+      "suela de caucho antideslizante. Ajuste con hebilla de bronce. Tallas 35–42.",
+    imageUrl: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 22,
     stock: 10,
     esNuevo: false,
-    tags: ["bufanda", "lana", "tejida", "tintes-naturales", "andino"],
+    tags: ["sandalias", "cuero", "honda", "artesanal", "verano"],
   },
   {
-    id: "p-012",
-    nombre: "Cinturón Tejido Pijao",
-    precio: 35000,
+    id: "12",
+    nombre: "Tenis blancos lona",
+    precio: 120000,
     vendedorId: "v-007",
     municipio: "el-espinal",
-    categoria: "Artesanal",
+    categoria: "Calzado",
     descripcion:
-      "Cinturón en cuero curtido con hebilla artesanal y decoración de chaquira inspirada en la cultura Pijao. " +
-      "Ancho 3cm, largo ajustable de 80 a 110cm. Acabado a mano.",
-    imageUrl: "https://images.unsplash.com/photo-1611604548018-d56bbd85d681?auto=format&w=400&h=400&fit=crop",
+      "Zapatillas canvas de lona con estampado exclusivo de granos de café y hojas de café tolimense. " +
+      "Puntera reforzada, cordones de algodón natural. Suela vulcanizada. Tallas 35–45.",
+    imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 16,
     stock: 15,
     esNuevo: false,
-    tags: ["cinturón", "cuero", "pijao", "chaquira", "artesanal"],
+    tags: ["tenis", "canvas", "blancos", "lona", "vulcanizado"],
   },
 
   // ── Vintage ────────────────────────────────────────────────────────────────
   {
-    id: "p-013",
-    nombre: "Jean Retro Espinal",
-    precio: 95000,
-    precioOriginal: 120000,
-    descuento: 20,
-    vendedorId: "v-002",
-    municipio: "el-espinal",
-    categoria: "Vintage",
-    descripcion:
-      "Jean recto de corte retro años 90, lavado vintage con desgastes manuales. " +
-      "Parche bordado del escudo del Espinal en el bolsillo trasero. Algodón 100% denim.",
-    imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&w=400&h=400&fit=crop",
-    rating: 4.6,
-    totalReseñas: 19,
-    stock: 9,
-    esNuevo: false,
-    tags: ["jean", "vintage", "retro", "espinal", "denim"],
-  },
-  {
-    id: "p-014",
-    nombre: "Chaleco Denim Río Grande",
+    id: "13",
+    nombre: "Chaleco denim azul",
     precio: 88000,
     vendedorId: "v-002",
     municipio: "el-espinal",
@@ -245,50 +230,65 @@ export const productos: Producto[] = [
     descripcion:
       "Chaleco denim clásico sin mangas con parches coleccionables de municipios del Tolima. " +
       "Lavado desgastado a la piedra. Ideal para customizar y coleccionar.",
-    imageUrl: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&w=400&h=400&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=400&fit=crop",
+    rating: 4.6,
+    totalReseñas: 19,
+    stock: 9,
+    esNuevo: true,
+    tags: ["chaleco", "denim", "azul", "vintage", "coleccionable"],
+  },
+  {
+    id: "14",
+    nombre: "Camiseta tie-dye morada",
+    precio: 55000,
+    vendedorId: "v-002",
+    municipio: "el-espinal",
+    categoria: "Vintage",
+    descripcion:
+      "Jean recto de corte retro años 90, lavado vintage con desgastes manuales. " +
+      "Parche bordado del escudo del Espinal en el bolsillo trasero. Algodón 100% denim.",
+    imageUrl: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400&h=400&fit=crop",
     rating: 4.5,
     totalReseñas: 14,
     stock: 6,
-    esNuevo: true,
-    tags: ["chaleco", "denim", "parches", "vintage", "coleccionable"],
+    esNuevo: false,
+    tags: ["camiseta", "tie-dye", "morada", "vintage", "retro"],
   },
 
-  // ── Calzado ────────────────────────────────────────────────────────────────
+  // ── Artesanal ──────────────────────────────────────────────────────────────
   {
-    id: "p-015",
-    nombre: "Sandalias Cuero Honda",
-    precio: 78000,
-    precioOriginal: 104000,
-    descuento: 25,
+    id: "15",
+    nombre: "Bolso tejido multicolor",
+    precio: 65000,
     vendedorId: "v-003",
     municipio: "honda",
-    categoria: "Calzado",
+    categoria: "Artesanal",
     descripcion:
-      "Sandalias de cuero curtido artesanalmente en Honda. Plantilla acolchada en cuero natural, " +
-      "suela de caucho antideslizante. Ajuste con hebilla de bronce. Tallas 35–42.",
-    imageUrl: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&w=400&h=400&fit=crop",
+      "Bufanda en lana de oveja teñida con tintes naturales de la región cafetera. " +
+      "Tejida a mano en telar vertical, patrón geométrico andino. 180 x 35 cm.",
+    imageUrl: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop",
     rating: 4.8,
     totalReseñas: 33,
     stock: 11,
     esNuevo: false,
-    tags: ["sandalias", "cuero", "honda", "artesanal", "verano"],
+    tags: ["bolso", "tejido", "multicolor", "artesanal", "lana"],
   },
   {
-    id: "p-016",
-    nombre: "Tenis Canvas Cafetero",
-    precio: 135000,
+    id: "16",
+    nombre: "Manilla hilo encerado",
+    precio: 15000,
     vendedorId: "v-006",
     municipio: "chaparral",
-    categoria: "Calzado",
+    categoria: "Artesanal",
     descripcion:
-      "Zapatillas canvas de lona con estampado exclusivo de granos de café y hojas de café tolimense. " +
-      "Puntera reforzada, cordones de algodón natural. Suela vulcanizada. Tallas 35–45.",
-    imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&w=400&h=400&fit=crop",
+      "Collar artesanal elaborado con semillas nativas del Tolima: tagua, chaquira y acaí. " +
+      "Tejido en macramé con hilo encerado. Pieza única, no hay dos iguales.",
+    imageUrl: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&h=400&fit=crop",
     rating: 4.7,
     totalReseñas: 25,
     stock: 14,
-    esNuevo: true,
-    tags: ["tenis", "canvas", "café", "estampado", "vulcanizado"],
+    esNuevo: false,
+    tags: ["manilla", "hilo", "encerado", "artesanal", "pijao"],
   },
 ];
 

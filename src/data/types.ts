@@ -26,6 +26,8 @@ export interface Vendedor {
   verificado: boolean;
   fechaRegistro: string;
   avatarUrl: string;
+  telefono?: string;
+  galeria?: string[];
 }
 
 export interface Producto {

@@ -10,6 +10,7 @@ interface OrganismHeroProps {
   subtitle?: string;
   searchPlaceholder?: string;
   onSearch?: (value: string) => void;
+  backgroundImage?: string;
 }
 
 export function OrganismHero({
@@ -17,6 +18,7 @@ export function OrganismHero({
   subtitle = "Descubre emprendedores de Ibagué, Honda, Espinal y más.",
   searchPlaceholder = "¿Qué deseas explorar en el Tolima?",
   onSearch,
+  backgroundImage,
 }: OrganismHeroProps) {
   return (
     <section
@@ -36,7 +38,7 @@ export function OrganismHero({
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: `url(${nevadoTolima})`,
+          backgroundImage: `url(${backgroundImage ?? nevadoTolima})`,
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
           zIndex: 0,

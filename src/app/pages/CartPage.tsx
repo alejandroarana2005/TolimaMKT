@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { X, ShoppingBag } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { getMunicipio } from "../../data/municipios";
+import { vendedores } from "../../data/vendedores";
 import { ButtonPrimary } from "../components/atoms/ButtonPrimary";
 import { ButtonSecondary } from "../components/atoms/ButtonSecondary";
 
@@ -10,6 +11,10 @@ export default function CartPage() {
   const { items, removeItem, updateQuantity, getTotal, getTotalItems } = useCart();
   const navigate = useNavigate();
   const total = getTotal();
+  const vendedoresEnCarrito = (() => {
+    const ids = [...new Set(items.map(({ producto }) => (producto as any).vendedorId as string).filter(Boolean))];
+    return ids.map((id) => vendedores.find((v) => v.id === id)).filter((v): v is NonNullable<typeof v> => v !== undefined);
+  })();
   useEffect(() => { document.title = "Tu carrito — TolimaMKT"; }, []);
 
   /* ── Empty state ──────────────────────────────────────────────────── */
@@ -404,6 +409,48 @@ export default function CartPage() {
               </span>
             </div>
           </div>
+
+          {/* Vendor humanization card */}
+          {vendedoresEnCarrito.length > 0 && (
+            <div style={{
+              background: "#FBF7ED",
+              border: "1.5px solid #D4AA50",
+              borderRadius: "14px",
+              padding: "14px 16px",
+              marginTop: "16px",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}>
+              <div style={{
+                position: "relative",
+                height: "32px",
+                width: `${32 + (Math.min(vendedoresEnCarrito.length, 3) - 1) * 20}px`,
+                flexShrink: 0,
+              }}>
+                {vendedoresEnCarrito.slice(0, 3).map((v, idx) => (
+                  <img
+                    key={v.id}
+                    src={v.avatarUrl}
+                    alt={v.nombre}
+                    style={{
+                      position: "absolute",
+                      left: idx * 20,
+                      top: 0,
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      border: "2px solid #FBF7ED",
+                      zIndex: vendedoresEnCarrito.length - idx,
+                    }}
+                  />
+                ))}
+              </div>
+              <p style={{ fontSize: "12px", fontWeight: 600, color: "#B08A2E", margin: 0, lineHeight: 1.4 }}>
+                Apoyando a {vendedoresEnCarrito.length} emprendedor{vendedoresEnCarrito.length !== 1 ? "es" : ""} del Tolima
+              </p>
+            </div>
+          )}
 
           {/* CTA */}
           <div

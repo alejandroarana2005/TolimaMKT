@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { vendedores } from "../../data/vendedores";
 import { productos } from "../../data/productos";
 import { getMunicipio } from "../../data/municipios";
-import { MoleculeProductCard } from "../components/molecules/MoleculeProductCard";
 import { ButtonPrimary } from "../components/atoms/ButtonPrimary";
+import type { Producto } from "../../data/types";
 
 const vendedor = vendedores[0];
 const misProductos = productos.filter((p) => p.vendedorId === vendedor.id);
@@ -25,11 +25,6 @@ export default function VendorDashboardPage() {
           grid-template-columns: repeat(4, 1fr);
           gap: 16px;
           margin-bottom: 40px;
-        }
-        .dash-products-grid {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
         }
         @media (max-width: 900px) {
           .dash-metrics { grid-template-columns: repeat(2, 1fr); }
@@ -111,16 +106,21 @@ export default function VendorDashboardPage() {
         </div>
 
         {misProductos.length > 0 ? (
-          <div className="dash-products-grid">
-            {misProductos.slice(0, 4).map((p) => (
-              <MoleculeProductCard
+          <div
+            style={{
+              background: "#FFFFFF",
+              borderRadius: "16px",
+              overflow: "hidden",
+              boxShadow: "0 2px 8px rgba(44,44,42,0.06)",
+            }}
+          >
+            {misProductos.slice(0, 4).map((p, i) => (
+              <VendorProductRow
                 key={p.id}
-                id={p.id}
-                imageUrl={p.imageUrl}
-                categoria={p.categoria}
-                municipio={getMunicipio(p.municipio)?.nombre ?? p.municipio}
-                productName={p.nombre}
-                price={`$${p.precio.toLocaleString("es-CO")}`}
+                producto={p}
+                municipioNombre={getMunicipio(p.municipio)?.nombre ?? p.municipio}
+                isLast={i === Math.min(misProductos.length, 4) - 1}
+                onEditar={() => navigate("/vendedor/catalogo")}
               />
             ))}
           </div>
@@ -191,6 +191,129 @@ export default function VendorDashboardPage() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function VendorProductRow({
+  producto: p,
+  municipioNombre,
+  isLast,
+  onEditar,
+}: {
+  producto: Producto;
+  municipioNombre: string;
+  isLast: boolean;
+  onEditar: () => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "16px",
+        padding: "14px 20px",
+        borderBottom: isLast ? "none" : "1px solid #F0EFE9",
+      }}
+    >
+      {/* Thumbnail */}
+      <img
+        src={p.imageUrl}
+        alt={p.nombre}
+        style={{
+          width: "52px",
+          height: "52px",
+          borderRadius: "10px",
+          objectFit: "cover",
+          flexShrink: 0,
+          background: "#F4F3F0",
+        }}
+      />
+
+      {/* Name + meta */}
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p
+          style={{
+            fontSize: "14px",
+            fontWeight: 600,
+            color: "#2C2C2A",
+            margin: "0 0 3px",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {p.nombre}
+        </p>
+        <p style={{ fontSize: "12px", color: "#9D9C97", margin: 0 }}>
+          {p.categoria} · {municipioNombre}
+        </p>
+      </div>
+
+      {/* Price */}
+      <div style={{ textAlign: "right", flexShrink: 0 }}>
+        <p style={{ fontSize: "14px", fontWeight: 700, color: "#2C2C2A", margin: "0 0 2px" }}>
+          ${p.precio.toLocaleString("es-CO")}
+        </p>
+        {p.descuento && (
+          <p style={{ fontSize: "11px", color: "#9D9C97", margin: 0 }}>
+            −{p.descuento}%
+          </p>
+        )}
+      </div>
+
+      {/* Stock badge */}
+      <span
+        style={{
+          padding: "4px 10px",
+          borderRadius: "20px",
+          background: "#F0FFF4",
+          border: "1px solid #9AE6B4",
+          color: "#276749",
+          fontSize: "12px",
+          fontWeight: 600,
+          flexShrink: 0,
+          fontFamily: "'DM Sans', sans-serif",
+        }}
+      >
+        {p.stock} uds
+      </span>
+
+      {/* Status badge */}
+      <span
+        style={{
+          padding: "4px 10px",
+          borderRadius: "20px",
+          background: "#F0FFF4",
+          border: "1px solid #9AE6B4",
+          color: "#276749",
+          fontSize: "12px",
+          fontWeight: 600,
+          flexShrink: 0,
+          fontFamily: "'DM Sans', sans-serif",
+        }}
+      >
+        Activo
+      </span>
+
+      {/* Actions */}
+      <button
+        type="button"
+        onClick={onEditar}
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          fontSize: "13px",
+          fontWeight: 600,
+          color: "#2C2C2A",
+          fontFamily: "'DM Sans', sans-serif",
+          padding: "4px 2px",
+          flexShrink: 0,
+        }}
+      >
+        Editar
+      </button>
     </div>
   );
 }

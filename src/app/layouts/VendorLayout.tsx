@@ -10,6 +10,11 @@ const NAV_ITEMS = [
   { icon: "📦", label: "Mis pedidos", to: "/vendedor/pedidos" },
 ];
 
+const MOBILE_NAV_ITEMS = [
+  ...NAV_ITEMS,
+  { icon: "🛍️", label: "Inicio", to: "/" },
+];
+
 export default function VendorLayout() {
   const municipioNombre = getMunicipio(vendedor.municipio)?.nombre ?? vendedor.municipio;
 
@@ -251,7 +256,7 @@ export default function VendorLayout() {
           flexDirection: "row",
         }}
       >
-        {NAV_ITEMS.map(({ icon, label, to }) => (
+        {MOBILE_NAV_ITEMS.map(({ icon, label, to }) => (
           <NavLink
             key={to}
             to={to}

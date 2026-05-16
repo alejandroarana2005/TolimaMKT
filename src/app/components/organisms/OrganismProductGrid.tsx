@@ -132,7 +132,9 @@ export function OrganismProductGrid({
           }}
           className="product-grid-container"
         >
-          {gridItems.map((product) => (
+          {gridItems.map((product) => {
+            const originalProducto = productos?.find((p) => p.id === product.id);
+            return (
             <div
               key={product.id}
               style={{
@@ -144,6 +146,7 @@ export function OrganismProductGrid({
               {/* Product Card */}
               <MoleculeProductCard
                 id={product.id}
+                producto={originalProducto}
                 imageUrl={product.imageUrl}
                 categoria={product.categoria}
                 municipio={product.municipio}
@@ -171,7 +174,8 @@ export function OrganismProductGrid({
                 </div>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

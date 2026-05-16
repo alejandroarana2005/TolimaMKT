@@ -4,7 +4,6 @@ import { Heart } from "lucide-react";
 import { useFavorites } from "../../context/FavoritesContext";
 import { productos } from "../../data/productos";
 import { MoleculeProductCard } from "../components/molecules/MoleculeProductCard";
-import { useCart } from "../../context/CartContext";
 
 type SortKey = "reciente" | "menor-precio" | "mayor-precio";
 
@@ -21,7 +20,6 @@ export default function UserFavoritesPage() {
 
   const navigate = useNavigate();
   const { favorites, clearFavorites } = useFavorites();
-  const { addItem } = useCart();
 
   const [sortKey, setSortKey] = useState<SortKey>("reciente");
   const [confirmClear, setConfirmClear] = useState(false);
@@ -184,12 +182,12 @@ export default function UserFavoritesPage() {
               <MoleculeProductCard
                 key={p.id}
                 id={p.id}
+                producto={p}
                 imageUrl={p.imageUrl}
                 categoria={p.categoria}
                 municipio={p.municipio}
                 productName={p.nombre}
                 price={`$${p.precio.toLocaleString("es-CO")}`}
-                onAddToCart={() => addItem(p, 1)}
               />
             ))}
           </div>

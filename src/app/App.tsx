@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useScrollToTop } from "../hooks/useScrollToTop";
+import { AuthProvider } from "../context/AuthContext";
 import HomePage from "./pages/HomePage";
+import ModaPage from "./pages/ModaPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import VendorProfilePage from "./pages/VendorProfilePage";
 import CatalogPage from "./pages/CatalogPage";
@@ -24,8 +26,10 @@ import UserPaymentsPage from "./pages/UserPaymentsPage";
 export default function App() {
   useScrollToTop();
   return (
+    <AuthProvider>
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/moda" element={<ModaPage />} />
       <Route path="/producto/:id" element={<ProductDetailPage />} />
       <Route path="/tienda/:id" element={<VendorProfilePage />} />
       <Route path="/productos" element={<CatalogPage />} />
@@ -49,5 +53,6 @@ export default function App() {
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
+    </AuthProvider>
   );
 }

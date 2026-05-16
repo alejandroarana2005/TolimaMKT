@@ -6,6 +6,7 @@ interface Pedido {
   id: string;
   fecha: string;
   productos: string[];
+  imageUrls: string[];
   comprador: string;
   direccion: string;
   telefono: string;
@@ -18,6 +19,7 @@ const PEDIDOS: Pedido[] = [
     id: "ORD-1746561600000",
     fecha: "06 may 2026",
     productos: ["Hoodie Pijao Roots (x1)"],
+    imageUrls: ["https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=80&h=80&fit=crop"],
     comprador: "Luis Felipe Cárdenas",
     direccion: "Cra 5 #12-34, Ibagué",
     telefono: "+57 311 432 1987",
@@ -27,27 +29,33 @@ const PEDIDOS: Pedido[] = [
   {
     id: "ORD-1746475200000",
     fecha: "05 may 2026",
-    productos: ["Bolso Artesanal Raíces (x2)"],
+    productos: ["Tote Bag Ibagué (x2)"],
+    imageUrls: ["https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=80&h=80&fit=crop"],
     comprador: "Andrea Morales Peña",
     direccion: "Cl 10 #8-56, Espinal",
     telefono: "+57 315 876 5432",
-    total: 119800,
+    total: 76000,
     estado: "Nuevo",
   },
   {
     id: "ORD-1746388800000",
     fecha: "04 may 2026",
-    productos: ["Mochila Heritage (x1)"],
+    productos: ["Mochila Cafetal Urban (x1)"],
+    imageUrls: ["https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=80&h=80&fit=crop"],
     comprador: "Juan Sebastián Torres",
     direccion: "Av. Ambala #22-11, Honda",
     telefono: "+57 301 234 5678",
-    total: 145000,
+    total: 85000,
     estado: "En preparación",
   },
   {
     id: "ORD-1746302400000",
     fecha: "03 may 2026",
     productos: ["Hoodie Pijao Roots (x1)", "Camiseta Tolima Tierra (x2)"],
+    imageUrls: [
+      "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=80&h=80&fit=crop",
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=80&h=80&fit=crop",
+    ],
     comprador: "María del Pilar Ríos",
     direccion: "Cra 15 #33-07, Ibagué",
     telefono: "+57 318 765 4321",
@@ -57,11 +65,12 @@ const PEDIDOS: Pedido[] = [
   {
     id: "ORD-1746216000000",
     fecha: "02 may 2026",
-    productos: ["Mochila Heritage (x1)"],
+    productos: ["Tote Bag Ibagué (x1)"],
+    imageUrls: ["https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=80&h=80&fit=crop"],
     comprador: "Carlos Andrés Gutiérrez",
     direccion: "Cl 8 #5-90, Líbano",
     telefono: "+57 310 123 4567",
-    total: 145000,
+    total: 38000,
     estado: "Entregado",
   },
 ];
@@ -187,8 +196,30 @@ export default function VendorOrdersPage() {
                     e.currentTarget.style.background = "transparent";
                 }}
               >
+                {/* Product thumbnails */}
+                <div style={{ position: "relative", width: pedido.imageUrls.length > 1 ? "60px" : "44px", height: "44px", flexShrink: 0 }}>
+                  {pedido.imageUrls.slice(0, 2).map((url, imgIdx) => (
+                    <img
+                      key={imgIdx}
+                      src={url}
+                      alt=""
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: imgIdx * 16,
+                        width: "44px",
+                        height: "44px",
+                        borderRadius: "10px",
+                        objectFit: "cover",
+                        border: "2px solid #FFFFFF",
+                        boxShadow: "0 1px 4px rgba(0,0,0,0.10)",
+                      }}
+                    />
+                  ))}
+                </div>
+
                 {/* Order ID */}
-                <div style={{ minWidth: "160px" }}>
+                <div style={{ minWidth: "150px" }}>
                   <p
                     style={{
                       fontSize: "13px",

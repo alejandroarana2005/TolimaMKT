@@ -16,6 +16,7 @@ export const vendedores: Vendedor[] = [
     verificado: true,
     fechaRegistro: "2023-03-12",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=MaríaCatalina",
+    telefono: "3001234567",
   },
   {
     id: "v-002",
@@ -32,6 +33,14 @@ export const vendedores: Vendedor[] = [
     verificado: true,
     fechaRegistro: "2023-06-20",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sebastián",
+    telefono: "3112345678",
+    galeria: [
+      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&fit=crop",
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&fit=crop",
+      "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&fit=crop",
+      "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&fit=crop",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&fit=crop",
+    ],
   },
   {
     id: "v-003",
@@ -48,6 +57,7 @@ export const vendedores: Vendedor[] = [
     verificado: true,
     fechaRegistro: "2022-11-05",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=AnaMaría",
+    telefono: "3223456789",
   },
   {
     id: "v-004",
@@ -64,6 +74,7 @@ export const vendedores: Vendedor[] = [
     verificado: false,
     fechaRegistro: "2024-01-18",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=DiegoAndrés",
+    telefono: "3134567890",
   },
   {
     id: "v-005",
@@ -80,6 +91,7 @@ export const vendedores: Vendedor[] = [
     verificado: false,
     fechaRegistro: "2024-03-07",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=Valentina",
+    telefono: "3205678901",
   },
   {
     id: "v-006",
@@ -96,6 +108,7 @@ export const vendedores: Vendedor[] = [
     verificado: false,
     fechaRegistro: "2024-04-22",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=JhonJairo",
+    telefono: "3016789012",
   },
   {
     id: "v-007",
@@ -112,6 +125,7 @@ export const vendedores: Vendedor[] = [
     verificado: true,
     fechaRegistro: "2023-09-14",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=LuisaFernanda",
+    telefono: "3157890123",
   },
   {
     id: "v-008",
@@ -128,6 +142,7 @@ export const vendedores: Vendedor[] = [
     verificado: true,
     fechaRegistro: "2023-02-28",
     avatarUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=CamiloAndrés",
+    telefono: "3048901234",
   },
 ];
 

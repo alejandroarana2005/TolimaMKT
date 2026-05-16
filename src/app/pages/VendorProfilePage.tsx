@@ -17,6 +17,7 @@ export default function VendorProfilePage() {
   const { isFollowing, toggleFollow } = useFollowedStores();
   const [loading, setLoading] = useState(true);
   const [followHover, setFollowHover] = useState(false);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -182,6 +183,28 @@ export default function VendorProfilePage() {
         }
         @media (max-width: 480px) {
           .vpp-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        }
+
+        /* Gallery */
+        .vpp-gallery { padding: 56px 24px 0; }
+        .vpp-gallery-inner { max-width: 1200px; margin: 0 auto; }
+        .vpp-gallery-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          grid-template-rows: 240px 240px;
+          gap: 12px;
+        }
+        .vpp-gallery-main { grid-row: 1 / 3; }
+        @media (max-width: 768px) {
+          .vpp-gallery { padding: 40px 16px 0; }
+          .vpp-gallery-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 200px 160px 160px;
+          }
+          .vpp-gallery-main { grid-column: 1 / 3; grid-row: 1; }
+        }
+        @media (max-width: 480px) {
+          .vpp-gallery-grid { grid-template-rows: 180px 140px 140px; gap: 8px; }
         }
       `}</style>
 
@@ -351,24 +374,26 @@ export default function VendorProfilePage() {
           <div
             style={{
               maxWidth: "600px",
-              padding: "8px 0",
+              padding: "32px 52px",
               position: "relative",
             }}
           >
-            {/* Opening quote */}
+            {/* Opening quote — absolute top-left, behind text */}
             <span
               aria-hidden
               style={{
-                display: "block",
+                position: "absolute",
+                top: 0,
+                left: 0,
                 fontFamily: "Georgia, serif",
-                fontSize: "64px",
-                lineHeight: 0.6,
+                fontSize: "80px",
+                lineHeight: 1,
                 color: "#D4AA50",
-                marginBottom: "12px",
                 userSelect: "none",
+                zIndex: 0,
               }}
             >
-              "
+              &#8220;
             </span>
             <p
               style={{
@@ -378,25 +403,28 @@ export default function VendorProfilePage() {
                 margin: 0,
                 fontStyle: "italic",
                 textAlign: "center",
+                position: "relative",
+                zIndex: 1,
               }}
             >
               {vendedor.descripcion}
             </p>
-            {/* Closing quote */}
+            {/* Closing quote — absolute bottom-right, behind text */}
             <span
               aria-hidden
               style={{
-                display: "block",
+                position: "absolute",
+                bottom: 0,
+                right: 0,
                 fontFamily: "Georgia, serif",
-                fontSize: "64px",
-                lineHeight: 0.6,
+                fontSize: "80px",
+                lineHeight: 1,
                 color: "#D4AA50",
-                marginTop: "16px",
-                textAlign: "right",
                 userSelect: "none",
+                zIndex: 0,
               }}
             >
-              "
+              &#8221;
             </span>
           </div>
 
@@ -432,11 +460,108 @@ export default function VendorProfilePage() {
             </button>
             <ButtonSecondary
               label="Contactar"
-              onClick={() => console.log("Contactar", vendedor.id)}
+              onClick={() => {
+                if (vendedor.telefono) {
+                  window.open(
+                    `https://wa.me/57${vendedor.telefono}?text=${encodeURIComponent(`Hola ${vendedor.nombreTienda}, vi tu tienda en TolimaMKT`)}`,
+                    "_blank"
+                  );
+                }
+              }}
             />
           </div>
         </div>
       </section>
+
+      {/* ── Gallery ──────────────────────────────────────────────────── */}
+      {vendedor.galeria && vendedor.galeria.length > 0 && (
+        <section className="vpp-gallery">
+          <div className="vpp-gallery-inner">
+            <h3
+              style={{
+                fontSize: "20px",
+                fontWeight: 700,
+                color: "#2C2C2A",
+                margin: "0 0 20px",
+                letterSpacing: "-0.01em",
+                fontFamily: "'DM Sans', sans-serif",
+              }}
+            >
+              Nuestra historia en imágenes
+            </h3>
+            <div className="vpp-gallery-grid">
+              <GalleryImg
+                src={vendedor.galeria[0]}
+                className="vpp-gallery-main"
+                onClick={() => setLightboxSrc(vendedor.galeria![0])}
+              />
+              {vendedor.galeria.slice(1, 5).map((src, i) => (
+                <GalleryImg
+                  key={i}
+                  src={src}
+                  onClick={() => setLightboxSrc(src)}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Lightbox ─────────────────────────────────────────────────── */}
+      {lightboxSrc && (
+        <div
+          onClick={() => setLightboxSrc(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.85)",
+            zIndex: 200,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <button
+            type="button"
+            aria-label="Cerrar imagen"
+            onClick={() => setLightboxSrc(null)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.12)",
+              border: "none",
+              color: "#FFFFFF",
+              fontSize: "22px",
+              lineHeight: 1,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "background 150ms",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.22)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
+          >
+            ✕
+          </button>
+          <img
+            src={lightboxSrc}
+            alt=""
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              borderRadius: "12px",
+              objectFit: "contain",
+              boxShadow: "0 24px 64px rgba(0,0,0,0.5)",
+            }}
+          />
+        </div>
+      )}
 
       {/* ── Products ─────────────────────────────────────────────────── */}
       <section className="vpp-products">
@@ -512,6 +637,7 @@ export default function VendorProfilePage() {
                 <div key={p.id} style={{ position: "relative" }}>
                   <MoleculeProductCard
                     id={p.id}
+                    producto={p}
                     imageUrl={p.imageUrl}
                     categoria={p.categoria}
                     municipio={getMunicipio(p.municipio)?.nombre ?? p.municipio}
@@ -591,5 +717,44 @@ function MetricDivider() {
         flexShrink: 0,
       }}
     />
+  );
+}
+
+function GalleryImg({
+  src,
+  className,
+  onClick,
+}: {
+  src: string;
+  className?: string;
+  onClick: () => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      className={className}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderRadius: "12px",
+        overflow: "hidden",
+        cursor: "pointer",
+      }}
+    >
+      <img
+        src={src}
+        alt=""
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+          transition: "filter 300ms ease, transform 300ms ease",
+          filter: hovered ? "brightness(1.08)" : "brightness(1)",
+          transform: hovered ? "scale(1.03)" : "scale(1)",
+        }}
+      />
+    </div>
   );
 }

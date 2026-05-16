@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Check, Copy, Instagram } from "lucide-react";
 
 // ─── Social Media Icons ────────────────────────────────────────────────────────
@@ -41,6 +42,7 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
 
 interface FooterLink {
   label: string;
+  to?: string;
   href?: string;
   onClick?: () => void;
 }
@@ -284,32 +286,45 @@ export function OrganismFooter({
               >
                 {column.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <button
-                      onClick={() => {
-                        link.onClick?.();
-                        onLinkClick?.(link.label);
-                      }}
-                      style={{
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: "13px",
-                        fontWeight: 400,
-                        color: "#E8C4D0",
-                        background: "transparent",
-                        border: "none",
-                        cursor: "pointer",
-                        padding: 0,
-                        transition: "color 180ms ease",
-                        textAlign: "left",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "#FFFFFF";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = "#E8C4D0";
-                      }}
-                    >
-                      {link.label}
-                    </button>
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        onClick={() => onLinkClick?.(link.label)}
+                        className="footer-link"
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "13px",
+                          fontWeight: 400,
+                          color: "#E8C4D0",
+                          textDecoration: "none",
+                          transition: "color 180ms ease",
+                          display: "inline-block",
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          link.onClick?.();
+                          onLinkClick?.(link.label);
+                        }}
+                        style={{
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "13px",
+                          fontWeight: 400,
+                          color: "#9D9C97",
+                          background: "transparent",
+                          border: "none",
+                          cursor: "default",
+                          padding: 0,
+                          textAlign: "left",
+                        }}
+                      >
+                        {link.label}
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -444,13 +459,13 @@ export function OrganismFooter({
 
       {/* Responsive Styles */}
       <style>{`
+        .footer-link:hover { color: #FFFFFF !important; }
         @media (max-width: 968px) {
           .footer-columns {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 32px 24px !important;
           }
         }
-
         @media (max-width: 640px) {
           .footer-columns {
             grid-template-columns: 1fr !important;
@@ -471,36 +486,35 @@ export function OrganismFooter({
 
 const DEFAULT_COLUMNS: FooterColumn[] = [
   {
-    title: "Comprar",
+    title: "Explorar",
     links: [
-      { label: "Streetwear" },
-      { label: "Accesorios" },
-      { label: "Calzado" },
-      { label: "Ropa formal" },
-      { label: "Vintage" },
-      { label: "Artesanal" },
+      { label: "Moda y Accesorios", to: "/moda" },
+      { label: "Catálogo completo", to: "/productos" },
+      { label: "Tiendas", to: "/tiendas" },
+      { label: "Nuevos productos", to: "/productos?estado=nuevo" },
+      { label: "En oferta", to: "/productos?estado=descuento" },
     ],
   },
   {
     title: "Vender en TolimaMKT",
     links: [
+      { label: "Panel del vendedor", to: "/vendedor/dashboard" },
       { label: "Crear tienda" },
       { label: "Guía del vendedor" },
       { label: "Comisiones" },
-      { label: "Políticas" },
       { label: "Ayuda para vendedores" },
     ],
   },
   {
     title: "Municipios",
     links: [
-      { label: "Ibagué" },
-      { label: "Honda" },
-      { label: "El Espinal" },
-      { label: "Líbano" },
-      { label: "Mariquita" },
-      { label: "Melgar" },
-      { label: "Chaparral" },
+      { label: "Ibagué", to: "/productos?municipio=Ibagué" },
+      { label: "Honda", to: "/productos?municipio=Honda" },
+      { label: "El Espinal", to: "/productos?municipio=El Espinal" },
+      { label: "Líbano", to: "/productos?municipio=Líbano" },
+      { label: "Mariquita", to: "/productos?municipio=Mariquita" },
+      { label: "Melgar", to: "/productos?municipio=Melgar" },
+      { label: "Chaparral", to: "/productos?municipio=Chaparral" },
     ],
   },
 ];

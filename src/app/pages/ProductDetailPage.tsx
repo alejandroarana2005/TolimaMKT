@@ -13,9 +13,17 @@ import { TagCategoria } from "../components/atoms/TagCategoria";
 import { ButtonPrimary } from "../components/atoms/ButtonPrimary";
 import { ButtonSecondary } from "../components/atoms/ButtonSecondary";
 
+function resolveOrigin(raw: string | null): { to: string; label: string } {
+  if (!raw) return { to: "/moda", label: "Moda" };
+  if (raw === "/productos") return { to: "/productos", label: "Catálogo" };
+  if (raw.startsWith("/tienda/")) return { to: raw, label: "Tienda" };
+  return { to: "/moda", label: "Moda" };
+}
+
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const origin = resolveOrigin(sessionStorage.getItem("productOrigin"));
   const producto = productos.find((p) => p.id === id);
   const vendedor = producto
     ? vendedores.find((v) => v.id === producto.vendedorId)
@@ -182,7 +190,7 @@ export default function ProductDetailPage() {
           }}
         >
           <Link
-            to="/"
+            to={origin.to}
             style={{
               color: "#7A3048",
               textDecoration: "none",
@@ -191,7 +199,7 @@ export default function ProductDetailPage() {
               flexShrink: 0,
             }}
           >
-            ← Inicio
+            ← Volver a {origin.label}
           </Link>
         </div>
       </div>
@@ -208,14 +216,14 @@ export default function ProductDetailPage() {
           }}
         >
           <Link
-            to="/"
+            to={origin.to}
             style={{ color: "#7A3048", textDecoration: "none", fontWeight: 500 }}
           >
-            Inicio
+            {origin.label}
           </Link>
           <span style={{ color: "#D5D4D0" }}>›</span>
           <Link
-            to="/productos"
+            to={`${origin.to.startsWith("/tienda") ? origin.to : origin.to === "/productos" ? "/productos" : "/moda"}?categoria=${encodeURIComponent(producto.categoria)}`}
             style={{ color: "#9D9C97", textDecoration: "none" }}
           >
             {producto.categoria}

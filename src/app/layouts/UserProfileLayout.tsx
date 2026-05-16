@@ -2,6 +2,7 @@ import { Outlet, NavLink } from "react-router-dom";
 import { OrganismHeader } from "../components/organisms/OrganismHeader";
 import { MoleculeMunicipioChip } from "../components/molecules/MoleculeMunicipioChip";
 import { useUser } from "../../context/UserContext";
+import { useAuth } from "../../context/AuthContext";
 
 const NAV_ITEMS = [
   { icon: "👤", label: "Mi perfil",        to: "/perfil",               end: true  },
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 export default function UserProfileLayout() {
   const { user } = useUser();
+  const { logout } = useAuth();
   const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.nombre + user.apellidos)}`;
 
   return (
@@ -126,7 +128,7 @@ export default function UserProfileLayout() {
               borderTop: "1px solid #F0EFE9",
             }}
           >
-            <button className="profile-logout-btn">
+            <button type="button" className="profile-logout-btn" onClick={logout}>
               Cerrar sesión
             </button>
           </div>

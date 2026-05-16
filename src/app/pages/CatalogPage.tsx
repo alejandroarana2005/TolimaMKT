@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { SlidersHorizontal, X, ChevronDown } from "lucide-react";
+import { SlidersHorizontal, X, ChevronDown, Search } from "lucide-react";
 import { productos } from "../../data/productos";
 import { getMunicipio } from "../../data/municipios";
 import { TagCategoria } from "../components/atoms/TagCategoria";
@@ -13,12 +13,29 @@ import { MoleculeDiscountPill } from "../components/molecules/MoleculeDiscountPi
 type Orden = "relevancia" | "precio-asc" | "precio-desc" | "nuevo";
 
 const CATEGORIAS = [
-  "Streetwear",
-  "Accesorios",
-  "Calzado",
-  "Vintage",
-  "Artesanal",
+  "Alimentación",
+  "Artesanía",
+  "Suministros Industriales",
+  "Electrónica y Tecnología",
+  "Hogar",
+  "Jardín y Huerta",
+  "Moda y Accesorios",
+  "Papelería y Entretenimiento",
+  "Salud y Belleza",
 ] as const;
+
+/* Maps each top-level section to the categoria values stored in product data */
+const SECCION_A_CATEGORIA: Record<string, string[]> = {
+  "Moda y Accesorios": ["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"],
+  "Alimentación": ["Alimentación"],
+  "Artesanía": ["Artesanía"],
+  "Suministros Industriales": ["Suministros Industriales"],
+  "Electrónica y Tecnología": ["Electrónica y Tecnología"],
+  "Hogar": ["Hogar"],
+  "Jardín y Huerta": ["Jardín y Huerta"],
+  "Papelería y Entretenimiento": ["Papelería y Entretenimiento"],
+  "Salud y Belleza": ["Salud y Belleza"],
+};
 
 const ORDENES: { value: Orden; label: string }[] = [
   { value: "relevancia", label: "Relevancia" },
@@ -47,10 +64,9 @@ export default function CatalogPage() {
   const initialOrden = searchParams.get("orden");
   const initialEstado = searchParams.get("estado");
 
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [categorias, setCategorias] = useState<string[]>(
-    initialCat && CATEGORIAS.includes(initialCat as typeof CATEGORIAS[number])
-      ? [initialCat]
-      : []
+    initialCat ? [initialCat] : []
   );
   const [municipiosFiltro, setMunicipiosFiltro] = useState<string[]>(
     initialMun
@@ -77,14 +93,26 @@ export default function CatalogPage() {
     municipiosFiltro.length +
     (precioRange ? 1 : 0) +
     (conDescuento ? 1 : 0) +
-    (soloNuevos ? 1 : 0);
+    (soloNuevos ? 1 : 0) +
+    (searchQuery.trim() ? 1 : 0);
 
   /* ── Filtered + sorted products ─────────────────────────────────── */
   const productosFiltrados = useMemo(() => {
     let result = [...productos];
 
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      result = result.filter(
+        (p) =>
+          p.nombre.toLowerCase().includes(q) ||
+          p.descripcion.toLowerCase().includes(q) ||
+          p.categoria.toLowerCase().includes(q)
+      );
+    }
+
     if (categorias.length > 0) {
-      result = result.filter((p) => categorias.includes(p.categoria));
+      const productCats = categorias.flatMap((sec) => SECCION_A_CATEGORIA[sec] ?? [sec]);
+      result = result.filter((p) => productCats.includes(p.categoria));
     }
     if (municipiosFiltro.length > 0) {
       result = result.filter((p) => municipiosFiltro.includes(p.municipio));
@@ -113,7 +141,7 @@ export default function CatalogPage() {
       default:
         return result;
     }
-  }, [categorias, municipiosFiltro, precioRange, conDescuento, soloNuevos, orden]);
+  }, [searchQuery, categorias, municipiosFiltro, precioRange, conDescuento, soloNuevos, orden]);
 
   /* ── Filter actions ─────────────────────────────────────────────── */
   const toggleCategoria = (cat: string) => {
@@ -146,6 +174,7 @@ export default function CatalogPage() {
     setPrecioRange(null);
     setConDescuento(false);
     setSoloNuevos(false);
+    setSearchQuery("");
   };
 
   /* ── Sidebar JSX (shared between desktop + mobile sheet) ───────── */
@@ -472,6 +501,71 @@ export default function CatalogPage() {
 
         {/* Right area */}
         <div>
+          {/* Search bar */}
+          <div
+            style={{
+              position: "relative",
+              marginBottom: "20px",
+            }}
+          >
+            <Search
+              size={16}
+              strokeWidth={2}
+              style={{
+                position: "absolute",
+                left: "14px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "#9D9C97",
+                pointerEvents: "none",
+              }}
+            />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar productos por nombre, categoría..."
+              style={{
+                width: "100%",
+                height: "44px",
+                border: "1.5px solid #E5E4E0",
+                borderRadius: "12px",
+                padding: "0 40px 0 40px",
+                fontSize: "14px",
+                fontFamily: "'DM Sans', sans-serif",
+                color: "#2C2C2A",
+                background: "#FFFFFF",
+                outline: "none",
+                boxSizing: "border-box",
+                transition: "border-color 150ms",
+              }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#7A3048")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "#E5E4E0")}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                aria-label="Limpiar búsqueda"
+                onClick={() => setSearchQuery("")}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "4px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#9D9C97",
+                }}
+              >
+                <X size={14} strokeWidth={2.5} />
+              </button>
+            )}
+          </div>
+
           {/* Toolbar */}
           <div
             style={{
@@ -623,6 +717,7 @@ export default function CatalogPage() {
                 <div key={p.id} style={{ position: "relative" }}>
                   <MoleculeProductCard
                     id={p.id}
+                    producto={p}
                     imageUrl={p.imageUrl}
                     categoria={p.categoria}
                     municipio={getMunicipio(p.municipio)?.nombre ?? p.municipio}

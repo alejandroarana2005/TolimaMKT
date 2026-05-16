@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Heart, Check, Copy } from "lucide-react";
 import { TagCategoria } from "../atoms/TagCategoria";
 import { useFavorites } from "../../../context/FavoritesContext";
+import { useCart } from "../../../context/CartContext";
+import type { Producto } from "../../../data/types";
 
 // ─── Molecule/ProductCard Component ───────────────────────────────────────────
 
 interface MoleculeProductCardProps {
   id?: string;
+  producto?: Producto;
   imageUrl?: string;
   categoria?: string;
   municipio?: string;
@@ -19,6 +22,7 @@ interface MoleculeProductCardProps {
 
 export function MoleculeProductCard({
   id,
+  producto,
   imageUrl,
   categoria = "Artesanías",
   municipio = "Ibagué",
@@ -28,9 +32,12 @@ export function MoleculeProductCard({
   onFavorite,
 }: MoleculeProductCardProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isFavorite: checkFav, toggleFavorite } = useFavorites();
+  const { addItem } = useCart();
   const [localFav, setLocalFav] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const favored = id ? checkFav(id) : localFav;
 
@@ -45,7 +52,10 @@ export function MoleculeProductCard({
   };
 
   const handleCardClick = () => {
-    if (id) navigate(`/producto/${id}`);
+    if (id) {
+      sessionStorage.setItem("productOrigin", location.pathname);
+      navigate(`/producto/${id}`);
+    }
   };
 
   return (
@@ -200,7 +210,16 @@ export function MoleculeProductCard({
 
         {/* Button/Primary "Agregar" */}
         <button
-          onClick={(e) => { e.stopPropagation(); onAddToCart?.(); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (producto) {
+              addItem(producto, 1);
+              setAdded(true);
+              setTimeout(() => setAdded(false), 2000);
+            } else {
+              onAddToCart?.();
+            }
+          }}
           style={{
             width: "100%",
             height: "36px",
@@ -208,7 +227,7 @@ export function MoleculeProductCard({
             fontSize: "13px",
             fontWeight: 600,
             color: "#FFFFFF",
-            background: "#7A3048",
+            background: added ? "#276749" : "#7A3048",
             borderRadius: "8px",
             border: "none",
             cursor: "pointer",
@@ -216,13 +235,13 @@ export function MoleculeProductCard({
             marginTop: "auto",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#9D3D5E";
+            if (!added) e.currentTarget.style.background = "#9D3D5E";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = "#7A3048";
+            e.currentTarget.style.background = added ? "#276749" : "#7A3048";
           }}
         >
-          Agregar
+          {added ? "✓ Agregado" : "Agregar"}
         </button>
       </div>
     </div>

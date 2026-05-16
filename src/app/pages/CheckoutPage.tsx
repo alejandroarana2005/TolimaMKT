@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { municipios } from "../../data/municipios";
 import { getMunicipio } from "../../data/municipios";
 import { ButtonPrimary } from "../components/atoms/ButtonPrimary";
+import { vendedores } from "../../data/vendedores";
+import { MoleculeMunicipioChip } from "../components/molecules/MoleculeMunicipioChip";
 
 /* ── Types ─────────────────────────────────────────────────────────── */
 
@@ -44,6 +46,10 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
   const { items, getTotal, clearCart } = useCart();
   const total = getTotal();
+  const vendedoresEnCarrito = useMemo(() => {
+    const ids = [...new Set(items.map(({ producto }) => (producto as any).vendedorId as string).filter(Boolean))];
+    return ids.map((id) => vendedores.find((v) => v.id === id)).filter((v): v is NonNullable<typeof v> => v !== undefined);
+  }, [items]);
   useEffect(() => { document.title = "Checkout — TolimaMKT"; }, []);
 
   /* Redirect if cart is empty */
@@ -342,6 +348,83 @@ export default function CheckoutPage() {
               </span>
             </div>
           </div>
+
+          {/* Vendor humanization card */}
+          {vendedoresEnCarrito.length > 0 && (
+            <div style={{
+              background: "#FBF7ED",
+              border: "1.5px solid #D4AA50",
+              borderRadius: "14px",
+              padding: "16px",
+              marginBottom: "16px",
+            }}>
+              {vendedoresEnCarrito.length === 1 ? (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "10px" }}>
+                  <img
+                    src={vendedoresEnCarrito[0].avatarUrl}
+                    alt={vendedoresEnCarrito[0].nombre}
+                    style={{ width: "48px", height: "48px", borderRadius: "50%", border: "2px solid #D4AA50" }}
+                  />
+                  <p style={{ fontSize: "11px", fontWeight: 600, color: "#9D9C97", margin: 0, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Le estás comprando directamente a
+                  </p>
+                  <p style={{ fontSize: "15px", fontWeight: 600, color: "#2C2C2A", margin: 0, fontFamily: "'DM Sans', sans-serif" }}>
+                    {vendedoresEnCarrito[0].nombre}
+                  </p>
+                  <MoleculeMunicipioChip
+                    label={getMunicipio(vendedoresEnCarrito[0].municipio)?.nombre ?? vendedoresEnCarrito[0].municipio}
+                    variant="default"
+                  />
+                  <p style={{ fontSize: "12px", color: "#B08A2E", fontStyle: "italic", margin: 0, lineHeight: 1.5 }}>
+                    "{vendedoresEnCarrito[0].nombreTienda}" — un emprendedor tolimense
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+                    <div style={{
+                      position: "relative",
+                      height: "36px",
+                      width: `${36 + (Math.min(vendedoresEnCarrito.length, 3) - 1) * 22}px`,
+                      flexShrink: 0,
+                    }}>
+                      {vendedoresEnCarrito.slice(0, 3).map((v, idx) => (
+                        <img
+                          key={v.id}
+                          src={v.avatarUrl}
+                          alt={v.nombre}
+                          style={{
+                            position: "absolute",
+                            left: idx * 22,
+                            top: 0,
+                            width: "36px",
+                            height: "36px",
+                            borderRadius: "50%",
+                            border: "2px solid #FBF7ED",
+                            zIndex: vendedoresEnCarrito.length - idx,
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <p style={{ fontSize: "13px", fontWeight: 600, color: "#B08A2E", margin: 0 }}>
+                      Apoyando a {vendedoresEnCarrito.length} emprendedores del Tolima
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    {vendedoresEnCarrito.map((v) => (
+                      <div key={v.id} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span style={{ fontSize: "13px", fontWeight: 500, color: "#2C2C2A" }}>{v.nombreTienda}</span>
+                        <span style={{ fontSize: "11px", color: "#D4AA50" }}>·</span>
+                        <span style={{ fontSize: "12px", color: "#9D9C97" }}>
+                          {getMunicipio(v.municipio)?.nombre ?? v.municipio}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* CTA */}
           <div className="chk-summary-cta">

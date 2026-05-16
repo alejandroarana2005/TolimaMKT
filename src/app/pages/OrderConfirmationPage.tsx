@@ -253,6 +253,13 @@ export default function OrderConfirmationPage() {
           </div>
           <div className="confirm-cta">
             <ButtonSecondary
+              label="Ver mi pedido"
+              showIcon={false}
+              onClick={() => navigate("/perfil/pedidos")}
+            />
+          </div>
+          <div className="confirm-cta">
+            <ButtonSecondary
               label="Volver al inicio"
               showIcon={false}
               onClick={() => navigate("/")}

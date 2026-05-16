@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
 
 // ─── Tag/Categoria Component ──────────────────────────────────────────────────
@@ -261,7 +261,7 @@ function StateRow({
 }: {
   label: string;
   description: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="flex items-center justify-between gap-6">
