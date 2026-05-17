@@ -5,7 +5,13 @@ export type Categoria =
   | "Accesorios"
   | "Calzado"
   | "Vintage"
-  | "Artesanal";
+  | "Artesanal"
+  | "Alimentacion"
+  | "Hogar"
+  | "Salud y Belleza"
+  | "Electronica"
+  | "Papeleria"
+  | "Artesania";
 
 export interface Municipio {
   id: string;

@@ -27,13 +27,13 @@ const CATEGORIAS = [
 /* Maps each top-level section to the categoria values stored in product data */
 const SECCION_A_CATEGORIA: Record<string, string[]> = {
   "Moda y Accesorios": ["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"],
-  "Alimentación": ["Alimentación"],
-  "Artesanía": ["Artesanía"],
-  "Suministros Industriales": ["Suministros Industriales"],
-  "Electrónica y Tecnología": ["Electrónica y Tecnología"],
+  "Alimentación": ["Alimentacion"],
+  "Artesanía": ["Artesania"],
+  "Suministros Industriales": [],
+  "Electrónica y Tecnología": ["Electronica"],
   "Hogar": ["Hogar"],
-  "Jardín y Huerta": ["Jardín y Huerta"],
-  "Papelería y Entretenimiento": ["Papelería y Entretenimiento"],
+  "Jardín y Huerta": [],
+  "Papelería y Entretenimiento": ["Papeleria"],
   "Salud y Belleza": ["Salud y Belleza"],
 };
 
