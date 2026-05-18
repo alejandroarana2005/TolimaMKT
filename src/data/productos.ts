@@ -731,11 +731,25 @@ export const productos: Producto[] = [
   },
 ];
 
+const CATEGORIAS_MODA = ["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"] as const;
+
 export const productosModa = productos.filter((p) =>
-  (["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"] as string[]).includes(p.categoria)
+  (CATEGORIAS_MODA as readonly string[]).includes(p.categoria)
 );
 
 export const productosGenerales = productos;
+
+export function getSectorFromCategoria(categoria: Producto["categoria"]): { label: string; path: string } {
+  if ((CATEGORIAS_MODA as readonly string[]).includes(categoria))
+    return { label: "Moda y Accesorios", path: "/moda" };
+  if (categoria === "Alimentacion") return { label: "Alimentación", path: "/" };
+  if (categoria === "Hogar") return { label: "Hogar", path: "/" };
+  if (categoria === "Electronica") return { label: "Electrónica", path: "/" };
+  if (categoria === "Salud y Belleza") return { label: "Salud y Belleza", path: "/" };
+  if (categoria === "Papeleria") return { label: "Papelería", path: "/" };
+  if (categoria === "Artesania") return { label: "Artesanía", path: "/" };
+  return { label: categoria, path: "/" };
+}
 
 export const getProducto = (id: string) =>
   productos.find((p) => p.id === id);

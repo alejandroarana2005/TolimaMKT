@@ -45,6 +45,7 @@ export default function HomePage() {
         onWishlistClick={() => console.log("Favoritos")}
         onLogoClick={() => console.log("Logo")}
         onNavClick={(item) => console.log("Nav:", item)}
+        catalogPath="/moda/catalogo"
       />
 
       <OrganismHero
@@ -63,19 +64,20 @@ export default function HomePage() {
         onCategoryChange={(cats) => {
           setSelectedCategories(cats);
           const cat = cats.find((c) => c !== "Todo");
-          if (cat) navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
+          if (cat) navigate(`/moda/catalogo?categoria=${encodeURIComponent(cat)}`);
+          else navigate("/moda/catalogo");
         }}
         onMunicipioChange={(muns) => {
           setSelectedMunicipios(muns);
           if (muns.length > 0)
-            navigate(`/productos?municipio=${encodeURIComponent(muns[0])}`);
+            navigate(`/moda/catalogo?municipio=${encodeURIComponent(muns[0])}`);
         }}
       />
 
       <OrganismProductGrid
         title="Productos destacados"
         productos={modaConDescuento}
-        onViewAll={() => navigate("/moda?orden=descuento")}
+        onViewAll={() => navigate("/moda/catalogo?orden=descuento")}
         onProductClick={(id) => navigate(`/producto/${id}`)}
       />
 
@@ -89,7 +91,7 @@ export default function HomePage() {
       <OrganismProductGrid
         title="Recién llegados"
         productos={modaNuevos}
-        onViewAll={() => navigate("/moda?estado=nuevo")}
+        onViewAll={() => navigate("/moda/catalogo?estado=nuevo")}
         onProductClick={(id) => navigate(`/producto/${id}`)}
       />
 

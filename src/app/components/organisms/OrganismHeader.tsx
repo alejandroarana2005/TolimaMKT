@@ -19,6 +19,7 @@ interface OrganismHeaderProps {
   onAvatarClick?: () => void;
   avatarUrl?: string;
   userName?: string;
+  catalogPath?: string;
 }
 
 export function OrganismHeader({
@@ -33,6 +34,7 @@ export function OrganismHeader({
   onAvatarClick,
   avatarUrl,
   userName = "Usuario",
+  catalogPath = "/productos",
 }: OrganismHeaderProps) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ export function OrganismHeader({
   const navLinks = [
     { label: "Inicio", to: "/" },
     { label: "Tiendas", to: "/tiendas" },
-    { label: "Catálogo", to: "/productos" },
+    { label: "Catálogo", to: catalogPath },
   ];
 
   const isActive = (to: string) =>

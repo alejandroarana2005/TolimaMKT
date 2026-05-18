@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "../components/atoms/LoadingSpinner";
 import { useCart } from "../../context/CartContext";
-import { productos } from "../../data/productos";
+import { productos, getSectorFromCategoria } from "../../data/productos";
 import { vendedores } from "../../data/vendedores";
 import { getMunicipio } from "../../data/municipios";
 import { MoleculeDiscountPill } from "../components/molecules/MoleculeDiscountPill";
@@ -206,42 +206,44 @@ export default function ProductDetailPage() {
 
       {/* Breadcrumb */}
       <nav className="pdp-breadcrumb">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            fontSize: "13px",
-            flexWrap: "wrap",
-          }}
-        >
-          <Link
-            to={origin.to}
-            style={{ color: "#7A3048", textDecoration: "none", fontWeight: 500 }}
-          >
-            {origin.label}
-          </Link>
-          <span style={{ color: "#D5D4D0" }}>›</span>
-          <Link
-            to={`${origin.to.startsWith("/tienda") ? origin.to : origin.to === "/productos" ? "/productos" : "/moda"}?categoria=${encodeURIComponent(producto.categoria)}`}
-            style={{ color: "#9D9C97", textDecoration: "none" }}
-          >
-            {producto.categoria}
-          </Link>
-          <span style={{ color: "#D5D4D0" }}>›</span>
-          <span
-            style={{
-              color: "#2C2C2A",
-              fontWeight: 500,
-              maxWidth: "240px",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {producto.nombre}
-          </span>
-        </div>
+        {(() => {
+          const sector = getSectorFromCategoria(producto.categoria);
+          return (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "13px",
+                flexWrap: "wrap",
+              }}
+            >
+              <Link to="/" style={{ color: "#7A3048", textDecoration: "none", fontWeight: 500 }}>
+                Inicio
+              </Link>
+              <span style={{ color: "#D5D4D0" }}>›</span>
+              <Link
+                to={sector.path}
+                style={{ color: "#7A3048", textDecoration: "none", fontWeight: 500 }}
+              >
+                {sector.label}
+              </Link>
+              <span style={{ color: "#D5D4D0" }}>›</span>
+              <span
+                style={{
+                  color: "#2C2C2A",
+                  fontWeight: 500,
+                  maxWidth: "240px",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {producto.nombre}
+              </span>
+            </div>
+          );
+        })()}
       </nav>
 
       {/* Two-column layout */}
