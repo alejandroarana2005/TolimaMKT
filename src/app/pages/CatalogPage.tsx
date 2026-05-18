@@ -12,18 +12,15 @@ import { MoleculeDiscountPill } from "../components/molecules/MoleculeDiscountPi
 
 type Orden = "relevancia" | "precio-asc" | "precio-desc" | "nuevo";
 
-const CATEGORIAS = [
-  "Streetwear",
-  "Accesorios",
-  "Calzado",
-  "Vintage",
-  "Artesanal",
-  "Alimentacion",
-  "Hogar",
-  "Salud y Belleza",
-  "Electronica",
-  "Papeleria",
-] as const;
+const SECTORES = [
+  { label: "Moda y Accesorios", categorias: ["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"] },
+  { label: "Alimentación", categorias: ["Alimentacion"] },
+  { label: "Hogar", categorias: ["Hogar"] },
+  { label: "Salud y Belleza", categorias: ["Salud y Belleza"] },
+  { label: "Electrónica y Tecnología", categorias: ["Electronica"] },
+  { label: "Papelería y Entretenimiento", categorias: ["Papeleria"] },
+  { label: "Artesanía", categorias: ["Artesania"] },
+];
 
 const ORDENES: { value: Orden; label: string }[] = [
   { value: "relevancia", label: "Relevancia" },
@@ -53,8 +50,10 @@ export default function CatalogPage() {
   const initialEstado = searchParams.get("estado");
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
-  const [categorias, setCategorias] = useState<string[]>(
-    initialCat ? [initialCat] : []
+  const [sectores, setSectores] = useState<string[]>(
+    initialCat
+      ? SECTORES.filter((s) => s.categorias.includes(initialCat)).map((s) => s.label)
+      : []
   );
   const [municipiosFiltro, setMunicipiosFiltro] = useState<string[]>(
     initialMun
@@ -77,7 +76,7 @@ export default function CatalogPage() {
 
   /* ── Active filter count (for mobile badge) */
   const activeCount =
-    categorias.length +
+    sectores.length +
     municipiosFiltro.length +
     (precioRange ? 1 : 0) +
     (conDescuento ? 1 : 0) +
@@ -98,8 +97,11 @@ export default function CatalogPage() {
       );
     }
 
-    if (categorias.length > 0) {
-      result = result.filter((p) => categorias.includes(p.categoria));
+    if (sectores.length > 0) {
+      const cats = sectores.flatMap(
+        (label) => SECTORES.find((s) => s.label === label)?.categorias ?? []
+      );
+      result = result.filter((p) => cats.includes(p.categoria));
     }
     if (municipiosFiltro.length > 0) {
       result = result.filter((p) => municipiosFiltro.includes(p.municipio));
@@ -128,12 +130,12 @@ export default function CatalogPage() {
       default:
         return result;
     }
-  }, [searchQuery, categorias, municipiosFiltro, precioRange, conDescuento, soloNuevos, orden]);
+  }, [searchQuery, sectores, municipiosFiltro, precioRange, conDescuento, soloNuevos, orden]);
 
   /* ── Filter actions ─────────────────────────────────────────────── */
-  const toggleCategoria = (cat: string) => {
-    setCategorias((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+  const toggleSector = (label: string) => {
+    setSectores((prev) =>
+      prev.includes(label) ? prev.filter((s) => s !== label) : [...prev, label]
     );
   };
 
@@ -154,7 +156,7 @@ export default function CatalogPage() {
   };
 
   const limpiarTodo = () => {
-    setCategorias([]);
+    setSectores([]);
     setMunicipiosFiltro([]);
     setPrecioDesdeInput("");
     setPrecioHastaInput("");
@@ -201,18 +203,18 @@ export default function CatalogPage() {
         )}
       </div>
 
-      {/* Categorías */}
-      <FilterSection title="Categorías">
+      {/* Sectores */}
+      <FilterSection title="Sectores">
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          {CATEGORIAS.map((cat) => (
+          {SECTORES.map((s) => (
             <div
-              key={cat}
+              key={s.label}
               style={{ display: "inline-flex", alignSelf: "flex-start" }}
             >
               <TagCategoria
-                label={cat}
-                variant={categorias.includes(cat) ? "active" : "default"}
-                onClick={() => toggleCategoria(cat)}
+                label={s.label}
+                variant={sectores.includes(s.label) ? "active" : "default"}
+                onClick={() => toggleSector(s.label)}
               />
             </div>
           ))}
@@ -650,11 +652,11 @@ export default function CatalogPage() {
                 marginTop: "12px",
               }}
             >
-              {categorias.map((cat) => (
+              {sectores.map((label) => (
                 <ActiveChip
-                  key={cat}
-                  label={cat}
-                  onRemove={() => toggleCategoria(cat)}
+                  key={label}
+                  label={label}
+                  onRemove={() => toggleSector(label)}
                 />
               ))}
               {municipiosFiltro.map((id) => (
