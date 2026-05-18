@@ -6,7 +6,10 @@ import { OrganismCategoryFilter } from "../components/organisms/OrganismCategory
 import { OrganismProductGrid } from "../components/organisms/OrganismProductGrid";
 import { OrganismVendorSection } from "../components/organisms/OrganismVendorSection";
 import { OrganismFooter } from "../components/organisms/OrganismFooter";
-import { productosConDescuento, productosNuevos } from "../../data/productos";
+import { productosModa } from "../../data/productos";
+
+const modaConDescuento = productosModa.filter((p) => p.descuento !== undefined);
+const modaNuevos = productosModa.filter((p) => p.esNuevo);
 import { vendedores } from "../../data/vendedores";
 import { municipios } from "../../data/municipios";
 
@@ -71,8 +74,8 @@ export default function HomePage() {
 
       <OrganismProductGrid
         title="Productos destacados"
-        productos={productosConDescuento}
-        onViewAll={() => navigate("/productos?orden=descuento")}
+        productos={modaConDescuento}
+        onViewAll={() => navigate("/moda?orden=descuento")}
         onProductClick={(id) => navigate(`/producto/${id}`)}
       />
 
@@ -85,8 +88,8 @@ export default function HomePage() {
 
       <OrganismProductGrid
         title="Recién llegados"
-        productos={productosNuevos}
-        onViewAll={() => navigate("/productos?estado=nuevo")}
+        productos={modaNuevos}
+        onViewAll={() => navigate("/moda?estado=nuevo")}
         onProductClick={(id) => navigate(`/producto/${id}`)}
       />
 

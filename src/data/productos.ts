@@ -731,6 +731,12 @@ export const productos: Producto[] = [
   },
 ];
 
+export const productosModa = productos.filter((p) =>
+  (["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"] as string[]).includes(p.categoria)
+);
+
+export const productosGenerales = productos;
+
 export const getProducto = (id: string) =>
   productos.find((p) => p.id === id);
 

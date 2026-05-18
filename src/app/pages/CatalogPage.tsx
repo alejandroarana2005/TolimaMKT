@@ -13,29 +13,17 @@ import { MoleculeDiscountPill } from "../components/molecules/MoleculeDiscountPi
 type Orden = "relevancia" | "precio-asc" | "precio-desc" | "nuevo";
 
 const CATEGORIAS = [
-  "Alimentación",
-  "Artesanía",
-  "Suministros Industriales",
-  "Electrónica y Tecnología",
+  "Streetwear",
+  "Accesorios",
+  "Calzado",
+  "Vintage",
+  "Artesanal",
+  "Alimentacion",
   "Hogar",
-  "Jardín y Huerta",
-  "Moda y Accesorios",
-  "Papelería y Entretenimiento",
   "Salud y Belleza",
+  "Electronica",
+  "Papeleria",
 ] as const;
-
-/* Maps each top-level section to the categoria values stored in product data */
-const SECCION_A_CATEGORIA: Record<string, string[]> = {
-  "Moda y Accesorios": ["Streetwear", "Accesorios", "Calzado", "Vintage", "Artesanal"],
-  "Alimentación": ["Alimentacion"],
-  "Artesanía": ["Artesania"],
-  "Suministros Industriales": [],
-  "Electrónica y Tecnología": ["Electronica"],
-  "Hogar": ["Hogar"],
-  "Jardín y Huerta": [],
-  "Papelería y Entretenimiento": ["Papeleria"],
-  "Salud y Belleza": ["Salud y Belleza"],
-};
 
 const ORDENES: { value: Orden; label: string }[] = [
   { value: "relevancia", label: "Relevancia" },
@@ -111,8 +99,7 @@ export default function CatalogPage() {
     }
 
     if (categorias.length > 0) {
-      const productCats = categorias.flatMap((sec) => SECCION_A_CATEGORIA[sec] ?? [sec]);
-      result = result.filter((p) => productCats.includes(p.categoria));
+      result = result.filter((p) => categorias.includes(p.categoria));
     }
     if (municipiosFiltro.length > 0) {
       result = result.filter((p) => municipiosFiltro.includes(p.municipio));
