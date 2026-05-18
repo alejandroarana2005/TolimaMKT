@@ -566,20 +566,20 @@ export const productos: Producto[] = [
   },
   {
     id: "30",
-    nombre: "Brocha de maquillaje",
+    nombre: "Pincel pequeño de pintura",
     precio: 22000,
     vendedorId: "v-001",
     municipio: "ibague",
-    categoria: "Salud y Belleza",
+    categoria: "Papeleria",
     descripcion:
-      "Brocha profesional de maquillaje con mango de bambú sostenible y cerdas sintéticas de alta densidad. " +
-      "Ideal para aplicar base en polvo o contornear. Tamaño compacto.",
+      "Pincel redondo de punta fina para acuarela y gouache, mango de bambú sostenible y cerdas sintéticas de alta densidad. " +
+      "Ideal para detalles, líneas finas y miniaturas. Tamaño compacto, número 4.",
     imageUrl: imgBrocha,
     rating: 4.4,
     totalReseñas: 11,
     stock: 20,
     esNuevo: false,
-    tags: ["brocha", "maquillaje", "bambú", "sostenible", "belleza"],
+    tags: ["pincel", "pintura", "acuarela", "bambú", "arte"],
   },
 
   // ── Electronica ────────────────────────────────────────────────────────────
